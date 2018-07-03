@@ -1,0 +1,17 @@
+#pixelPainter {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  border: 1px solid #2b2b2b;
+}
+
+.row {
+  display: flex;
+  height: 30px;
+  width: fit-content;
+}
+
+.cell {
+  width: 30px;
+  border: 1px solid #2b2b2b;
+}

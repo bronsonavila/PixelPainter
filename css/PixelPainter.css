@@ -151,7 +151,7 @@ h1 {
     width: 26.4px;
     border: 1px solid #2b2b2b;
   }
-  .select {
+  .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.1px 1.1px #fff;
   }
@@ -189,7 +189,7 @@ h1 {
     width: 34.32px;
     border: 1px solid #2b2b2b;
   }
-  .select {
+  .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.43px 1.43px #fff;
   }
@@ -227,7 +227,7 @@ h1 {
     width: 44.62px;
     border: 1px solid #2b2b2b;
   }
-  .select {
+  .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.86px 1.86px #fff;
   }

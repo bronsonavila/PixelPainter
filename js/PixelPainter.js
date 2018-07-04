@@ -68,13 +68,12 @@ function PixelPainter(width, height) {
 
   // Set paintbrush color upon clicking palette element:
   for (let i = 0; i < paletteColors.length; i++) {
-    (function(i) {
-      paletteColors[i].addEventListener('click', function() {
-        paintBrushColor = this.style.background;
-      });
-    })(i);
+    paletteColors[i].addEventListener('click', function() {
+      paintBrushColor = this.style.background;
+      console.log(paintBrushColor);
+    });
   }
-
+  
 }
 
 PixelPainter(30, 30);

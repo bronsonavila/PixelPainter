@@ -1,8 +1,12 @@
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
+  const headingColl = document.getElementsByTagName('h1');
+  let headingLetters;
   let canvasCells;
   let paletteCells;
   let paintBrushColor;
+
+  // ----------------------------------------------------------------------- //
 
   function HSVtoRGB(h, s, v) {
     var r, g, b, i, f, p, q, t;
@@ -34,6 +38,15 @@ function PixelPainter(width, height) {
     return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
   }
 
+  function changeHeading() {
+    headingColl[0].innerHTML = `
+      <span class="heading">P</span><span class="heading">i</span><span class="heading">x</span><span class="heading">e</span><span class="heading">l</span>
+      
+      <span class="heading">P</span><span class="heading">a</span><span class="heading">i</span><span class="heading">n</span><span class="heading">t</span><span class="heading">e</span><span class="heading">r</span>
+    `
+    headingLetters = document.getElementsByClassName('heading');
+  }
+
   function buildGrid(width, height, id, rowClass, cellClass) {
     const grid = document.createElement('div');
     for (let i = 0; i < height; i++) {
@@ -59,6 +72,8 @@ function PixelPainter(width, height) {
       btn.classList.toggle($class);
     }, 50);
   }
+
+  // ----------------------------------------------------------------------- //
 
   // Create "canvas" grid:
   const canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
@@ -87,10 +102,18 @@ function PixelPainter(width, height) {
   clearButton.textContent = 'CLEAR';
   options.appendChild(clearButton);
 
+  // Set heading colors:
+  changeHeading();
+  for (let i = 0; i < headingLetters.length; i++) {
+    headingLetters[i].style.color = rainbow(i, headingLetters.length / 1);
+  }
+
   // Set palette colors:
   for (let i = 0; i < paletteCells.length; i++) {
     paletteCells[i].style.background = rainbow(i, paletteCells.length / 2);
   }
+
+  // ----------------------------------------------------------------------- //
 
   // Set paintbrush color upon clicking palette element:
   for (let i = 0; i < paletteCells.length; i++) {
@@ -140,9 +163,11 @@ function PixelPainter(width, height) {
     }
   })
 
-    // Set default color upon initialization:
-    paintBrushColor = paletteCells[0].style.background;
-    paletteCells[0].classList.add('select-color');
+  // ----------------------------------------------------------------------- //
+
+  // Set default color upon initialization:
+  paintBrushColor = paletteCells[0].style.background;
+  paletteCells[0].classList.add('select-color');
 
 }
 

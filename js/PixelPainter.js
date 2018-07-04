@@ -53,6 +53,13 @@ function PixelPainter(width, height) {
     return grid;
   }
 
+  function animateButton(btn) {
+    btn.classList.toggle('press');
+    setTimeout(function() {
+      btn.classList.toggle('press');
+    }, 50);
+  }
+
   // Create "canvas" grid:
   const canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
   pixelPainterDiv.appendChild(canvas);
@@ -112,12 +119,14 @@ function PixelPainter(width, height) {
 
   // Set paintbrush color to white upon clicking "erase":
   eraseButton.addEventListener('click', function () {
+    animateButton(this);
     paintBrushColor = 'rgb(255, 255, 255)';
     currentColorDisplay.style.background = 'rgb(255, 255, 255)';
   })
 
   // Clear canvas upon clicking "clear":
   clearButton.addEventListener('click', function () {
+    animateButton(this);
     for (let i = 0; i < canvasCells.length; i++) {
       canvasCells[i].style.background = 'rgb(255, 255, 255)';
     }

@@ -1,6 +1,7 @@
 function PixelPainter(width, height) {
   let pixelPainterDiv = document.getElementById('pixelPainter');
-  let paletteColors;
+  let canvasCells;
+  let paletteCells;
   let paintBrushColor;
 
   function HSVtoRGB(h, s, v) {
@@ -55,25 +56,37 @@ function PixelPainter(width, height) {
   // Create canvas:
   var canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
   pixelPainterDiv.appendChild(canvas);
+  canvasCells = document.getElementsByClassName('canvas-cell');
 
   // Create palette:
   var palette = buildGrid(16, 2, 'palette', 'palette-row', 'palette-cell');
   pixelPainterDiv.appendChild(palette);
-  paletteColors = document.getElementsByClassName('palette-cell');
+  paletteCells = document.getElementsByClassName('palette-cell');
 
   // Set palette colors:
-  for (let i = 0; i < paletteColors.length; i++) {
-    paletteColors[i].style.background = rainbow(i, paletteColors.length / 2);
+  for (let i = 0; i < paletteCells.length; i++) {
+    paletteCells[i].style.background = rainbow(i, paletteCells.length / 2);
   }
 
   // Set paintbrush color upon clicking palette element:
-  for (let i = 0; i < paletteColors.length; i++) {
-    paletteColors[i].addEventListener('click', function() {
+  for (let i = 0; i < paletteCells.length; i++) {
+    paletteCells[i].addEventListener('click', function() {
       paintBrushColor = this.style.background;
-      console.log(paintBrushColor);
     });
   }
-  
+
+  // Set canvas cell background to match paintbrush color:
+  for (let i = 0; i < canvasCells.length; i++) {
+    canvasCells[i].addEventListener('mousedown', function() {
+      this.style.background = paintBrushColor;
+    });
+    canvasCells[i].addEventListener('mouseover', function(event) {
+      if (event.which === 1 || event.which === 3) {
+        this.style.background = paintBrushColor;
+      }
+    });
+  }
+
 }
 
 PixelPainter(30, 30);

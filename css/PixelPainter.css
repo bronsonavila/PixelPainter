@@ -98,14 +98,6 @@ h1 {
   transition: 0.1s;
 }
 
-.erase-button:hover {
-  background: hsla(60, 100%, 75%, 1);
-}
-
-.clear-button:hover {
-  background: hsla(0, 100%, 75%, 1);
-}
-
 .current-color-display {
   height: 32px;
   width: 32px;
@@ -118,6 +110,7 @@ h1 {
 .press {
   transform: translate(1px, 2px);
   box-shadow: none !important;
+  background: hsla(60, 100%, 75%, 1);
 }
 
 @media (min-width: 576px) and (min-height: 576px) {

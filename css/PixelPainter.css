@@ -98,6 +98,7 @@ h1 {
   width: 32px;
   border: 2px solid hsla(210, 33%, 33%, 1);
   border-radius: 50%;
+  transition: 0.1s;
   background: #fff;
 }
 

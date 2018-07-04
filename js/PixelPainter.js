@@ -60,11 +60,6 @@ function PixelPainter(width, height) {
     }, 50);
   }
 
-  function setDefault() {
-    paintBrushColor = paletteCells[0].style.background;
-    paletteCells[0].classList.add('select-color');
-  }
-
   // Create "canvas" grid:
   const canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
   pixelPainterDiv.appendChild(canvas);

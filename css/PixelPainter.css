@@ -19,7 +19,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.33rem 0.5rem;
   font-family: 'Righteous', cursive;
   font-size: 1.5rem;
   border: 0;
@@ -31,7 +31,8 @@ button {
 h1 {
   text-align: center;
   font-size: 3rem;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   width: fit-content;
   min-width: 320px;
   color: #fbfbfb;
@@ -59,7 +60,7 @@ h1 {
 #palette {
   width: fit-content;
   border: 1px solid #2b2b2b;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   box-shadow: 1px 2px 3px hsla(210, 33%, 33%, 0.75);
 }
 
@@ -72,24 +73,24 @@ h1 {
 
 .canvas-row {
   display: flex;
-  height: 10px;
+  height: 12px;
   width: fit-content;
 }
 
 .canvas-cell {
-  width: 10px;
+  width: 12px;
   border: 1px solid #2b2b2b;
   background: #fff;
 }
 
 .palette-row {
   display: flex;
-  height: 16px;
+  height: 24px;
   width: fit-content;
 }
 
 .palette-cell {
-  width: 16px;
+  width: 24px;
   border: 1px solid #2b2b2b;
 }
 
@@ -115,99 +116,102 @@ h1 {
 
 @media (min-width: 576px) and (min-height: 576px) {
   button {
-    padding: 0.55rem;
+    padding: 0.36rem 0.55rem;
     font-size: 1.65rem;
     box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
   }
   h1 {
     font-size: 3.3rem;
-    margin-top: 1.65rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1.1rem;
     text-shadow: 2px 2px 2px #2b2b2b;
   }
   #canvas,
   #palette {
     border: 1px solid #2b2b2b;
-    margin-bottom: 1.65rem;
+    margin-bottom: 1.1rem;
     box-shadow: 1px 2px 3px hsla(210, 26%, 7%, 0.75);
   }
   .canvas-row {
-    height: 11px;
+    height: 13.2px;
   }
   .canvas-cell {
-    width: 11px;
+    width: 13.2px;
     border: 1px solid #2b2b2b;
   }
   .palette-row {
-    height: 17.6px;
+    height: 26.4px;
   }
   .palette-cell {
-    width: 17.6px;
+    width: 26.4px;
     border: 1px solid #2b2b2b;
   }
 }
 
 @media (min-width: 768px) and (min-height: 768px) {
   button {
-    padding: 0.72rem;
+    padding: 0.47rem 0.72rem;
     font-size: 2.15rem;
     box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
   }
   h1 {
     font-size: 4.29rem;
-    margin-top: 2.15rem;
+    margin-top: 2.86rem;
+    margin-bottom: 1.43rem;
     text-shadow: 2px 2px 2px #2b2b2b;
   }
   #canvas,
   #palette {
     border: 1px solid #2b2b2b;
-    margin-bottom: 2.15rem;
+    margin-bottom: 1.43rem;
     box-shadow: 1px 2px 3px hsla(210, 26%, 7%, 0.75);
   }
   .canvas-row {
-    height: 14.3px;
+    height: 17.16px;
   }
   .canvas-cell {
-    width: 14.3px;
+    width: 17.16px;
     border: 1px solid #2b2b2b;
   }
   .palette-row {
-    height: 22.88px;
+    height: 34.32px;
   }
   .palette-cell {
-    width: 22.88px;
+    width: 34.32px;
     border: 1px solid #2b2b2b;
   }
 }
 
 @media (min-width: 992px) and (min-height: 992px) {
   button {
-    padding: 0.93rem;
+    padding: 0.61rem 0.93rem;
     font-size: 2.79rem;
     box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
   }
   h1 {
     font-size: 5.58rem;
-    margin-top: 2.79rem;
+    margin-top: 3.72rem;
+    margin-bottom: 1.86rem;
     text-shadow: 2px 2px 2px #2b2b2b;
   }
   #canvas,
   #palette {
     border: 1px solid #2b2b2b;
-    margin-bottom: 2.79rem;
+    margin-bottom: 1.86rem;
     box-shadow: 1px 2px 3px hsla(210, 26%, 7%, 0.75);
   }
   .canvas-row {
-    height: 18.59px;
+    height: 22.31px;
   }
   .canvas-cell {
-    width: 18.59px;
+    width: 22.31px;
     border: 1px solid #2b2b2b;
   }
   .palette-row {
-    height: 29.74px;
+    height: 44.62px;
   }
   .palette-cell {
-    width: 29.74px;
+    width: 44.62px;
     border: 1px solid #2b2b2b;
   }
 }

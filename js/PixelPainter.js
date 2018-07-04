@@ -66,7 +66,7 @@ function PixelPainter(width, height) {
   canvasCells = document.getElementsByClassName('canvas-cell');
 
   // Create "palette" grid:
-  const palette = buildGrid(16, 2, 'palette', 'palette-row', 'palette-cell');
+  const palette = buildGrid(8, 4, 'palette', 'palette-row', 'palette-cell');
   pixelPainterDiv.appendChild(palette);
   paletteCells = document.getElementsByClassName('palette-cell');
 
@@ -134,4 +134,4 @@ function PixelPainter(width, height) {
 
 }
 
-PixelPainter(24, 24);
+PixelPainter(20, 20);

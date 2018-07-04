@@ -1,5 +1,5 @@
 function PixelPainter(width, height) {
-  let pixelPainterDiv = document.getElementById('pixelPainter');
+  const pixelPainterDiv = document.getElementById('pixelPainter');
   let canvasCells;
   let paletteCells;
   let paintBrushColor;
@@ -35,7 +35,7 @@ function PixelPainter(width, height) {
   }
 
   function buildGrid(width, height, id, rowClass, cellClass) {
-    var grid = document.createElement('div');
+    const grid = document.createElement('div');
     for (let i = 0; i < height; i++) {
       // Create div that will be a new row:
       const row = document.createElement('div');
@@ -53,15 +53,32 @@ function PixelPainter(width, height) {
     return grid;
   }
 
-  // Create canvas:
-  var canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
+  // Create "canvas" grid:
+  const canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
   pixelPainterDiv.appendChild(canvas);
   canvasCells = document.getElementsByClassName('canvas-cell');
 
-  // Create palette:
-  var palette = buildGrid(16, 2, 'palette', 'palette-row', 'palette-cell');
+  // Create "palette" grid:
+  const palette = buildGrid(16, 2, 'palette', 'palette-row', 'palette-cell');
   pixelPainterDiv.appendChild(palette);
   paletteCells = document.getElementsByClassName('palette-cell');
+
+  // Create container for "options" bar:
+  const options = document.createElement('div');
+  options.id = 'options';
+  pixelPainterDiv.appendChild(options);
+
+  // Create "erase" button:
+  const eraseButton = document.createElement('button');
+  eraseButton.className = 'erase-button';
+  eraseButton.textContent = 'ERASE';
+  options.appendChild(eraseButton);
+
+  // Create "clear" button:
+  const clearButton = document.createElement('button');
+  clearButton.className = 'clear-button';
+  clearButton.textContent = 'CLEAR';
+  options.appendChild(clearButton);
 
   // Set palette colors:
   for (let i = 0; i < paletteCells.length; i++) {
@@ -70,22 +87,34 @@ function PixelPainter(width, height) {
 
   // Set paintbrush color upon clicking palette element:
   for (let i = 0; i < paletteCells.length; i++) {
-    paletteCells[i].addEventListener('click', function() {
+    paletteCells[i].addEventListener('click', function () {
       paintBrushColor = this.style.background;
     });
   }
 
   // Set canvas cell background to match paintbrush color:
   for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('mousedown', function() {
+    canvasCells[i].addEventListener('mousedown', function () {
       this.style.background = paintBrushColor;
     });
-    canvasCells[i].addEventListener('mouseover', function(event) {
+    canvasCells[i].addEventListener('mouseover', function (event) {
       if (event.which === 1 || event.which === 3) {
         this.style.background = paintBrushColor;
       }
     });
   }
+
+  // Set paintbrush color to white upon clicking "erase":
+  eraseButton.addEventListener('click', function () {
+    paintBrushColor = 'rgb(255, 255, 255)';
+  })
+
+  // Clear canvas upon clicking "clear":
+  clearButton.addEventListener('click', function () {
+    for (let i = 0; i < canvasCells.length; i++) {
+      canvasCells[i].style.background = 'rgb(255, 255, 255)';
+    }
+  })
 
 }
 

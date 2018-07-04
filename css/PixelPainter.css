@@ -93,6 +93,19 @@ h1 {
   border: 1px solid #2b2b2b;
 }
 
+.erase-button,
+.clear-button {
+  transition: 0.1s;
+}
+
+.erase-button:hover {
+  background: hsla(60, 100%, 75%, 1);
+}
+
+.clear-button:hover {
+  background: hsla(0, 100%, 75%, 1);
+}
+
 .current-color-display {
   height: 32px;
   width: 32px;

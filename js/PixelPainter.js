@@ -53,11 +53,16 @@ function PixelPainter(width, height) {
     return grid;
   }
 
-  function animateButton(btn) {
-    btn.classList.toggle('press');
-    setTimeout(function() {
-      btn.classList.toggle('press');
+  function animateButton(btn, $class) {
+    btn.classList.toggle($class);
+    setTimeout(function () {
+      btn.classList.toggle($class);
     }, 50);
+  }
+
+  function setDefault() {
+    paintBrushColor = paletteCells[0].style.background;
+    paletteCells[0].classList.add('select-color');
   }
 
   // Create "canvas" grid:
@@ -81,11 +86,6 @@ function PixelPainter(width, height) {
   eraseButton.textContent = 'ERASE';
   options.appendChild(eraseButton);
 
-  // Create display to show current color:
-  const currentColorDisplay = document.createElement('div');
-  currentColorDisplay.className = 'current-color-display';
-  options.appendChild(currentColorDisplay);
-
   // Create "clear" button:
   const clearButton = document.createElement('button');
   clearButton.className = 'clear-button';
@@ -101,7 +101,15 @@ function PixelPainter(width, height) {
   for (let i = 0; i < paletteCells.length; i++) {
     paletteCells[i].addEventListener('click', function () {
       paintBrushColor = this.style.background;
-      currentColorDisplay.style.background = this.style.background;
+      // Place white highlight only around selected color:
+      if (this.className !== 'palette-cell select-color') {
+        for (let i = 0; i < paletteCells.length; i++) {
+          paletteCells[i].classList.remove('select-color');
+        }
+        this.classList.add('select-color');
+      }
+      // Remove .select-erase from "erase" button:
+      eraseButton.classList.remove('select-erase');
     });
   }
 
@@ -119,18 +127,27 @@ function PixelPainter(width, height) {
 
   // Set paintbrush color to white upon clicking "erase":
   eraseButton.addEventListener('click', function () {
-    animateButton(this);
+    animateButton(this, 'press-erase');
     paintBrushColor = 'rgb(255, 255, 255)';
-    currentColorDisplay.style.background = 'rgb(255, 255, 255)';
+    this.classList.add('select-erase');
+    // Remove white highlight around any currently selected palette color:
+    for (let i = 0; i < paletteCells.length; i++) {
+      paletteCells[i].classList.remove('select-color');
+
+    }
   })
 
   // Clear canvas upon clicking "clear":
   clearButton.addEventListener('click', function () {
-    animateButton(this);
+    animateButton(this, 'press-clear');
     for (let i = 0; i < canvasCells.length; i++) {
       canvasCells[i].style.background = 'rgb(255, 255, 255)';
     }
   })
+
+    // Set default color upon initialization:
+    paintBrushColor = paletteCells[0].style.background;
+    paletteCells[0].classList.add('select-color');
 
 }
 

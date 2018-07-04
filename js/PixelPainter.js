@@ -74,6 +74,11 @@ function PixelPainter(width, height) {
   eraseButton.textContent = 'ERASE';
   options.appendChild(eraseButton);
 
+  // Create display to show current color:
+  const currentColorDisplay = document.createElement('div');
+  currentColorDisplay.className = 'current-color-display';
+  options.appendChild(currentColorDisplay);
+
   // Create "clear" button:
   const clearButton = document.createElement('button');
   clearButton.className = 'clear-button';
@@ -89,6 +94,7 @@ function PixelPainter(width, height) {
   for (let i = 0; i < paletteCells.length; i++) {
     paletteCells[i].addEventListener('click', function () {
       paintBrushColor = this.style.background;
+      currentColorDisplay.style.background = this.style.background;
     });
   }
 
@@ -107,6 +113,7 @@ function PixelPainter(width, height) {
   // Set paintbrush color to white upon clicking "erase":
   eraseButton.addEventListener('click', function () {
     paintBrushColor = 'rgb(255, 255, 255)';
+    currentColorDisplay.style.background = 'rgb(255, 255, 255)';
   })
 
   // Clear canvas upon clicking "clear":

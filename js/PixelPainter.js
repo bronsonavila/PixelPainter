@@ -172,6 +172,11 @@ function PixelPainter(width, height) {
     }
   });
 
+  // Prevent 'mouseover' from coloring cells while mouse is not clicked down:
+  document.body.addEventListener('mouseup', function() {
+    mouseIsDown = false;
+  });
+
   // ----------------------------------------------------------------------- //
 
   // Set heading colors:

@@ -79,6 +79,7 @@ h1 {
 }
 
 .canvas-cell {
+  transition: background 0.1s;
   width: 16px;
   border: 1px solid #2b2b2b;
   background: #fff;
@@ -91,6 +92,7 @@ h1 {
 }
 
 .palette-cell {
+  transition: box-shadow 0.1s;
   width: 22px;
   border: 1px solid #2b2b2b;
 }

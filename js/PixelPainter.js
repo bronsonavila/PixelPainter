@@ -77,16 +77,13 @@ function PixelPainter(width, height) {
   function buildGrid(width, height, id, rowClass, cellClass) {
     const grid = document.createElement('div');
     for (let i = 0; i < height; i++) {
-      // Create div that will be a new row:
       const row = document.createElement('div');
       row.className = rowClass;
       for (let j = 0; j < width; j++) {
-        // Append cell to new row:
         const cell = document.createElement('div');
         cell.className = cellClass;
         row.appendChild(cell);
       }
-      // Append new row to #pixelPainter:
       grid.appendChild(row);
     }
     grid.id = id;

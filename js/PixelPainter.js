@@ -189,4 +189,4 @@ function PixelPainter(width, height) {
 
 }
 
-PixelPainter(20, 20);
+PixelPainter(16, 16);

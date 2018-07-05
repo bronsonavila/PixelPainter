@@ -1,6 +1,7 @@
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
   const headingColl = document.getElementsByTagName('h1');
+  let mouseIsDown = false;
   let headingLetters;
   let canvasCells;
   let paletteCells;
@@ -107,11 +108,14 @@ function PixelPainter(width, height) {
   // Set canvas cell background to match paintbrush color (MOUSE):
   for (let i = 0; i < canvasCells.length; i++) {
     canvasCells[i].addEventListener('mousedown', function() {
+      mouseIsDown = true;
       this.style.background = paintBrushColor;
     });
-    canvasCells[i].addEventListener('mouseover', function(event) {
-      // Source (Stack Overflow): https://goo.gl/yYrFgz
-      if (event.which === 1 || event.which === 3) {
+    canvasCells[i].addEventListener('mouseup', function() {
+      mouseIsDown = false
+    });
+    canvasCells[i].addEventListener('mouseover', function() {
+      if (mouseIsDown) {
         this.style.background = paintBrushColor;
       }
     });

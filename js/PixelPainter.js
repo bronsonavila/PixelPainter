@@ -1,6 +1,6 @@
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
-  const headingColl = document.getElementsByTagName('h1');
+  const heading = document.getElementsByTagName('h1')[0];
   let mouseIsDown = false;
   let headingLetters;
   let canvasCells;
@@ -33,7 +33,7 @@ function PixelPainter(width, height) {
   }
 
   function changeHeading() {
-    headingColl[0].innerHTML =
+    heading.innerHTML =
       '<span class="heading">P</span>' +
       '<span class="heading">i</span>' +
       '<span class="heading">x</span>' +
@@ -164,6 +164,7 @@ function PixelPainter(width, height) {
   for (let i = 0, hue = 0; i < headingLetters.length; i++) {
     headingLetters[i].style.color = makeColor(hue);
     hue += (360 / (headingLetters.length / 0.5));
+    heading.style.opacity = '1';
   }
 
   // Set palette colors:

@@ -40,6 +40,10 @@ function PixelPainter(width, height) {
     return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
   }
 
+  function grayscale(num) {
+    return 'rgb(' + num + ',' + num + ',' + num + ')';
+  }
+
   function changeHeading() {
     headingColl[0].innerHTML = `
       <span class="heading">P</span><span class="heading">i</span><span class="heading">x</span><span class="heading">e</span><span class="heading">l</span>
@@ -83,7 +87,7 @@ function PixelPainter(width, height) {
   canvasCells = document.getElementsByClassName('canvas-cell');
 
   // Create "palette" grid:
-  const palette = buildGrid(8, 4, 'palette', 'palette-row', 'palette-cell');
+  const palette = buildGrid(8, 5, 'palette', 'palette-row', 'palette-cell');
   pixelPainterDiv.appendChild(palette);
   paletteCells = document.getElementsByClassName('palette-cell');
 
@@ -103,17 +107,6 @@ function PixelPainter(width, height) {
   clearButton.className = 'clear-button';
   clearButton.textContent = 'CLEAR';
   options.appendChild(clearButton);
-
-  // Set heading colors:
-  changeHeading();
-  for (let i = 0; i < headingLetters.length; i++) {
-    headingLetters[i].style.color = rainbow(i, headingLetters.length / 1);
-  }
-
-  // Set palette colors:
-  for (let i = 0; i < paletteCells.length; i++) {
-    paletteCells[i].style.background = rainbow(i, paletteCells.length / 2);
-  }
 
   // ----------------------------------------------------------------------- //
 
@@ -145,6 +138,7 @@ function PixelPainter(width, height) {
       }
     });
   }
+
   // Set canvas cell background to match paintbrush color (TOUCH):
   for (let i = 0; i < canvasCells.length; i++) {
     canvasCells[i].addEventListener('touchstart', function (event) {
@@ -182,6 +176,23 @@ function PixelPainter(width, height) {
   })
 
   // ----------------------------------------------------------------------- //
+  
+  // Set heading colors:
+  changeHeading();
+  for (let i = 0; i < headingLetters.length; i++) {
+    headingLetters[i].style.color = rainbow(i, headingLetters.length / 1);
+  }
+
+  // Set palette colors:
+  for (let i = 0, rgb = 0; i < paletteCells.length; i++) {
+    if (i < paletteCells.length * 0.8) {
+      const length = paletteCells.length * 0.8 / 2;
+      paletteCells[i].style.background = rainbow(i, length);
+    } else {
+      paletteCells[i].style.background = grayscale(rgb);
+      rgb += Math.round(255 / 8);
+    }
+  }
 
   // Set default color upon initialization:
   paintBrushColor = paletteCells[0].style.background;

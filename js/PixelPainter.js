@@ -12,7 +12,7 @@ function PixelPainter(width, height) {
     // Source (Stack Overflow): https://goo.gl/8kW6EY
     var r, g, b, i, f, p, q, t;
     if (arguments.length === 1) {
-      s = h.s, v = h.v, h = h.h;
+      (s = h.s), (v = h.v), (h = h.h);
     }
     i = Math.floor(h * 6);
     f = h * 6 - i;
@@ -20,12 +20,24 @@ function PixelPainter(width, height) {
     q = v * (1 - f * s);
     t = v * (1 - (1 - f) * s);
     switch (i % 6) {
-      case 0: r = v, g = t, b = p; break;
-      case 1: r = q, g = v, b = p; break;
-      case 2: r = p, g = v, b = t; break;
-      case 3: r = p, g = q, b = v; break;
-      case 4: r = t, g = p, b = v; break;
-      case 5: r = v, g = p, b = q; break;
+      case 0:
+        (r = v), (g = t), (b = p);
+        break;
+      case 1:
+        (r = q), (g = v), (b = p);
+        break;
+      case 2:
+        (r = p), (g = v), (b = t);
+        break;
+      case 3:
+        (r = p), (g = q), (b = v);
+        break;
+      case 4:
+        (r = t), (g = p), (b = v);
+        break;
+      case 5:
+        (r = v), (g = p), (b = q);
+        break;
     }
     return {
       r: Math.round(r * 255),
@@ -36,7 +48,7 @@ function PixelPainter(width, height) {
 
   function rainbow(p, length) {
     // Source (Stack Overflow): https://goo.gl/8kW6EY
-    var rgb = HSVtoRGB(p / length * 0.5, 1.0, 1.0);
+    var rgb = HSVtoRGB((p / length) * 0.5, 1.0, 1.0);
     return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
   }
 
@@ -45,8 +57,8 @@ function PixelPainter(width, height) {
   }
 
   function changeHeading() {
-    headingColl[0].innerHTML = 
-      '<span class="heading">P</span>' + 
+    headingColl[0].innerHTML =
+      '<span class="heading">P</span>' +
       '<span class="heading">i</span>' +
       '<span class="heading">x</span>' +
       '<span class="heading">e</span>' +
@@ -58,7 +70,7 @@ function PixelPainter(width, height) {
       '<span class="heading">n</span>' +
       '<span class="heading">t</span>' +
       '<span class="heading">e</span>' +
-      '<span class="heading">r</span>'
+      '<span class="heading">r</span>';
     headingLetters = document.getElementsByClassName('heading');
   }
 
@@ -83,7 +95,7 @@ function PixelPainter(width, height) {
 
   function animateButton(btn, $class) {
     btn.classList.toggle($class);
-    setTimeout(function () {
+    setTimeout(function() {
       btn.classList.toggle($class);
     }, 50);
   }
@@ -121,7 +133,7 @@ function PixelPainter(width, height) {
 
   // Set paintbrush color upon clicking palette element:
   for (let i = 0; i < paletteCells.length; i++) {
-    paletteCells[i].addEventListener('click', function () {
+    paletteCells[i].addEventListener('click', function() {
       paintBrushColor = this.style.background;
       // Place white highlight only around selected color:
       if (this.className !== 'palette-cell select-color') {
@@ -137,10 +149,10 @@ function PixelPainter(width, height) {
 
   // Set canvas cell background to match paintbrush color (MOUSE):
   for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('mousedown', function () {
+    canvasCells[i].addEventListener('mousedown', function() {
       this.style.background = paintBrushColor;
     });
-    canvasCells[i].addEventListener('mouseover', function (event) {
+    canvasCells[i].addEventListener('mouseover', function(event) {
       // Source (Stack Overflow): https://goo.gl/yYrFgz
       if (event.which === 1 || event.which === 3) {
         this.style.background = paintBrushColor;
@@ -150,11 +162,11 @@ function PixelPainter(width, height) {
 
   // Set canvas cell background to match paintbrush color (TOUCH):
   for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('touchstart', function (event) {
+    canvasCells[i].addEventListener('touchstart', function(event) {
       event.preventDefault();
       this.style.background = paintBrushColor;
     });
-    canvasCells[i].addEventListener('touchmove', function (event) {
+    canvasCells[i].addEventListener('touchmove', function(event) {
       event.preventDefault();
       const pageX = event.touches[0].pageX;
       const pageY = event.touches[0].pageY;
@@ -166,7 +178,7 @@ function PixelPainter(width, height) {
   }
 
   // Set paintbrush color to white upon clicking "erase":
-  eraseButton.addEventListener('click', function () {
+  eraseButton.addEventListener('click', function() {
     animateButton(this, 'press-erase');
     paintBrushColor = 'rgb(255, 255, 255)';
     this.classList.add('select-erase');
@@ -174,18 +186,18 @@ function PixelPainter(width, height) {
     for (let i = 0; i < paletteCells.length; i++) {
       paletteCells[i].classList.remove('select-color');
     }
-  })
+  });
 
   // Clear canvas upon clicking "clear":
-  clearButton.addEventListener('click', function () {
+  clearButton.addEventListener('click', function() {
     animateButton(this, 'press-clear');
     for (let i = 0; i < canvasCells.length; i++) {
       canvasCells[i].style.background = 'rgb(255, 255, 255)';
     }
-  })
+  });
 
   // ----------------------------------------------------------------------- //
-  
+
   // Set heading colors:
   changeHeading();
   for (let i = 0; i < headingLetters.length; i++) {
@@ -195,7 +207,7 @@ function PixelPainter(width, height) {
   // Set palette colors:
   for (let i = 0, rgb = 0; i < paletteCells.length; i++) {
     if (i < paletteCells.length * 0.8) {
-      const length = paletteCells.length * 0.8 / 2;
+      const length = (paletteCells.length * 0.8) / 2;
       paletteCells[i].style.background = rainbow(i, length);
     } else {
       paletteCells[i].style.background = grayscale(rgb);
@@ -206,7 +218,6 @@ function PixelPainter(width, height) {
   // Set default color upon initialization:
   paintBrushColor = paletteCells[0].style.background;
   paletteCells[0].classList.add('select-color');
-
 }
 
 PixelPainter(16, 16);

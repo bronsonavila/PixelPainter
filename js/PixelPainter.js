@@ -133,7 +133,7 @@ function PixelPainter(width, height) {
     });
   }
 
-  // Set canvas cell background to match paintbrush color:
+  // Set canvas cell background to match paintbrush color (MOUSE):
   for (let i = 0; i < canvasCells.length; i++) {
     canvasCells[i].addEventListener('mousedown', function () {
       this.style.background = paintBrushColor;
@@ -142,6 +142,22 @@ function PixelPainter(width, height) {
       // Source (Stack Overflow): https://goo.gl/yYrFgz
       if (event.which === 1 || event.which === 3) {
         this.style.background = paintBrushColor;
+      }
+    });
+  }
+  // Set canvas cell background to match paintbrush color (TOUCH):
+  for (let i = 0; i < canvasCells.length; i++) {
+    canvasCells[i].addEventListener('touchstart', function (event) {
+      event.preventDefault();
+      this.style.background = paintBrushColor;
+    });
+    canvasCells[i].addEventListener('touchmove', function (event) {
+      event.preventDefault();
+      const pageX = event.touches[0].pageX;
+      const pageY = event.touches[0].pageY;
+      const cell = document.elementFromPoint(pageX, pageY);
+      if (cell && cell.classList.contains('canvas-cell')) {
+        cell.style.background = paintBrushColor;
       }
     });
   }
@@ -154,7 +170,6 @@ function PixelPainter(width, height) {
     // Remove white highlight around any currently selected palette color:
     for (let i = 0; i < paletteCells.length; i++) {
       paletteCells[i].classList.remove('select-color');
-
     }
   })
 

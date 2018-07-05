@@ -45,11 +45,20 @@ function PixelPainter(width, height) {
   }
 
   function changeHeading() {
-    headingColl[0].innerHTML = `
-      <span class="heading">P</span><span class="heading">i</span><span class="heading">x</span><span class="heading">e</span><span class="heading">l</span>
-      
-      <span class="heading">P</span><span class="heading">a</span><span class="heading">i</span><span class="heading">n</span><span class="heading">t</span><span class="heading">e</span><span class="heading">r</span>
-    `
+    headingColl[0].innerHTML = 
+      '<span class="heading">P</span>' + 
+      '<span class="heading">i</span>' +
+      '<span class="heading">x</span>' +
+      '<span class="heading">e</span>' +
+      '<span class="heading">l</span>' +
+      ' ' +
+      '<span class="heading">P</span>' +
+      '<span class="heading">a</span>' +
+      '<span class="heading">i</span>' +
+      '<span class="heading">n</span>' +
+      '<span class="heading">t</span>' +
+      '<span class="heading">e</span>' +
+      '<span class="heading">r</span>'
     headingLetters = document.getElementsByClassName('heading');
   }
 

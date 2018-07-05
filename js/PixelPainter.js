@@ -2,6 +2,7 @@ function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
   const heading = document.getElementsByTagName('h1')[0];
   let mouseIsDown = false;
+  let colorRange = 360;
   let headingLetters;
   let canvasCells;
   let paletteCells;
@@ -56,6 +57,20 @@ function PixelPainter(width, height) {
 
   function makeGrayscale(num) {
     return 'rgb(' + num + ',' + num + ',' + num + ')';
+  }
+
+  function easterEgg() {
+    for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
+      setTimeout(function() {
+        canvasCells[i].style.background = makeColor(hue);
+      }, ms);
+      hue += colorRange / canvasCells.length;
+      ms += 1000 / canvasCells.length;
+    }
+    colorRange *= 2;
+    if (colorRange === 184320) {
+      colorRange = 360;
+    }
   }
 
   // ----------------------------------------------------------------------- //
@@ -181,6 +196,9 @@ function PixelPainter(width, height) {
   // Set default color upon initialization:
   paintBrushColor = paletteCells[0].style.background;
   paletteCells[0].classList.add('select-color');
+
+  // Easter Egg - Click first letter of heading to create rainbow canvas:
+  headingLetters[0].addEventListener('click', easterEgg);
 }
 
 PixelPainter(16, 16);

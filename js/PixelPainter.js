@@ -112,7 +112,7 @@ function PixelPainter(width, height) {
       this.style.background = paintBrushColor;
     });
     canvasCells[i].addEventListener('mouseup', function() {
-      mouseIsDown = false
+      mouseIsDown = false;
     });
     canvasCells[i].addEventListener('mouseover', function() {
       if (mouseIsDown) {
@@ -163,7 +163,7 @@ function PixelPainter(width, height) {
   changeHeading();
   for (let i = 0, hue = 0; i < headingLetters.length; i++) {
     headingLetters[i].style.color = makeColor(hue);
-    hue += (360 / (headingLetters.length / 0.5));
+    hue += 360 / (headingLetters.length / 0.5);
     heading.style.opacity = '1';
   }
 
@@ -171,7 +171,7 @@ function PixelPainter(width, height) {
   for (let i = 0, hue = 0, rgb = 0; i < paletteCells.length; i++) {
     if (i < paletteCells.length * 0.8) {
       paletteCells[i].style.background = makeColor(hue);
-      hue += (360 / (paletteCells.length * 0.8));
+      hue += 360 / (paletteCells.length * 0.8);
     } else {
       paletteCells[i].style.background = makeGrayscale(rgb);
       rgb += Math.round(255 / 8);

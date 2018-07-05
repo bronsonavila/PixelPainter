@@ -9,6 +9,7 @@ function PixelPainter(width, height) {
   // ----------------------------------------------------------------------- //
 
   function HSVtoRGB(h, s, v) {
+    // Source (Stack Overflow): https://goo.gl/8kW6EY
     var r, g, b, i, f, p, q, t;
     if (arguments.length === 1) {
       s = h.s, v = h.v, h = h.h;
@@ -34,6 +35,7 @@ function PixelPainter(width, height) {
   }
 
   function rainbow(p, length) {
+    // Source (Stack Overflow): https://goo.gl/8kW6EY
     var rgb = HSVtoRGB(p / length * 0.5, 1.0, 1.0);
     return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';
   }
@@ -137,6 +139,7 @@ function PixelPainter(width, height) {
       this.style.background = paintBrushColor;
     });
     canvasCells[i].addEventListener('mouseover', function (event) {
+      // Source (Stack Overflow): https://goo.gl/yYrFgz
       if (event.which === 1 || event.which === 3) {
         this.style.background = paintBrushColor;
       }

@@ -168,11 +168,11 @@ function PixelPainter(width, height) {
     });
     canvasCells[i].addEventListener('touchmove', function(event) {
       event.preventDefault();
-      const pageX = event.touches[0].pageX;
-      const pageY = event.touches[0].pageY;
-      const cell = document.elementFromPoint(pageX, pageY);
-      if (cell && cell.classList.contains('canvas-cell')) {
-        cell.style.background = paintBrushColor;
+      const x = event.touches[0].pageX;
+      const y = event.touches[0].pageY;
+      const element = document.elementFromPoint(x, y);
+      if (element && element.classList.contains('canvas-cell')) {
+        element.style.background = paintBrushColor;
       }
     });
   }

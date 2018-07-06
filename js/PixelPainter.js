@@ -140,6 +140,17 @@ function PixelPainter(width, height) {
     heading.style.opacity = '1';
   }
 
+  // Set palette colors:
+  for (let i = 0, hue = 0, rgb = 0; i < paletteCells.length; i++) {
+    if (i < paletteCells.length * 0.8) {
+      paletteCells[i].style.background = makeColor(hue);
+      hue += 360 / (paletteCells.length * 0.8);
+    } else {
+      paletteCells[i].style.background = makeGrayscale(rgb);
+      rgb += Math.round(256 / ((width / 2) - 1));
+    }
+  }
+
   // Set paintbrush color upon clicking palette element:
   for (let i = 0; i < paletteCells.length; i++) {
     paletteCells[i].addEventListener('click', handlePaletteCells);
@@ -157,17 +168,6 @@ function PixelPainter(width, height) {
 
   // Clear canvas upon clicking "clear":
   clearButton.addEventListener('click', handleClearButton);
-
-  // Set palette colors:
-  for (let i = 0, hue = 0, rgb = 0; i < paletteCells.length; i++) {
-    if (i < paletteCells.length * 0.8) {
-      paletteCells[i].style.background = makeColor(hue);
-      hue += 360 / (paletteCells.length * 0.8);
-    } else {
-      paletteCells[i].style.background = makeGrayscale(rgb);
-      rgb += Math.round(256 / ((width / 2) - 1));
-    }
-  }
 
   // Set default color upon initialization:
   paintBrushColor = paletteCells[0].style.background;

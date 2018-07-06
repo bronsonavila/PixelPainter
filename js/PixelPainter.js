@@ -52,20 +52,20 @@ function PixelPainter(width, height) {
     return 'rgb(' + num + ',' + num + ',' + num + ')';
   }
 
-  function handlePaletteCells() {
-    paintBrushColor = this.style.background;
+  function handlePaletteCells(event) {
+    paintBrushColor = event.target.style.background;
     // Place white highlight only around selected color:
-    if (this.className !== 'palette-cell select-color') {
+    if (event.target.className !== 'palette-cell select-color') {
       for (let i = 0; i < paletteCells.length; i++) {
         paletteCells[i].classList.remove('select-color');
       }
-      this.classList.add('select-color');
+      event.target.classList.add('select-color');
     }
   }
 
-  function handlePointerDown() {
+  function handlePointerDown(event) {
     pointerIsDown = true;
-    this.style.background = paintBrushColor;
+    event.target.style.background = paintBrushColor;
   }
 
   function handlePointerUp() {
@@ -84,8 +84,8 @@ function PixelPainter(width, height) {
     }
   }
 
-  function handleClearButton() {
-    animateButton(this, 'press-clear');
+  function handleClearButton(event) {
+    animateButton(event.target, 'press-clear');
     for (let i = 0; i < canvasCells.length; i++) {
       canvasCells[i].style.background = 'rgb(255, 255, 255)';
     }

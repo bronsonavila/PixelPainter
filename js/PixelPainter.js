@@ -26,13 +26,6 @@ function PixelPainter(width, height) {
     return grid;
   }
 
-  function animateButton(btn, $class) {
-    btn.classList.toggle($class);
-    setTimeout(function() {
-      btn.classList.toggle($class);
-    }, 50);
-  }
-
   function changeHeading() {
     heading.innerHTML =
       '<span class="heading">P</span>' +
@@ -59,6 +52,73 @@ function PixelPainter(width, height) {
     return 'rgb(' + num + ',' + num + ',' + num + ')';
   }
 
+  function handleMouseDown() {
+    mouseIsDown = true;
+    this.style.background = paintBrushColor;
+  }
+
+  function handleMouseUp() {
+    mouseIsDown = false;
+  }
+
+  function handleMouseOver() {
+    if (mouseIsDown) {
+      this.style.background = paintBrushColor;
+    }
+  }
+
+  function handlePaletteCells() {
+    paintBrushColor = this.style.background;
+    // Place white highlight only around selected color:
+    if (this.className !== 'palette-cell select-color') {
+      for (let i = 0; i < paletteCells.length; i++) {
+        paletteCells[i].classList.remove('select-color');
+      }
+      this.classList.add('select-color');
+    }
+    // Remove .select-erase from "erase" button:
+    eraseButton.classList.remove('select-erase');
+  }
+
+  function handleTouchStart(event) {
+    event.preventDefault();
+    this.style.background = paintBrushColor;
+  }
+
+  function handleTouchMove(event) {
+    event.preventDefault();
+    const x = event.touches[0].pageX;
+    const y = event.touches[0].pageY;
+    const element = document.elementFromPoint(x, y);
+    if (element && element.classList.contains('canvas-cell')) {
+      element.style.background = paintBrushColor;
+    }
+  }
+
+  function handleEraseButton() {
+    animateButton(this, 'press-erase');
+    paintBrushColor = 'rgb(255, 255, 255)';
+    this.classList.add('select-erase');
+    // Remove white highlight around any currently selected palette color:
+    for (let i = 0; i < paletteCells.length; i++) {
+      paletteCells[i].classList.remove('select-color');
+    }
+  }
+
+  function handleClearButton() {
+    animateButton(this, 'press-clear');
+    for (let i = 0; i < canvasCells.length; i++) {
+      canvasCells[i].style.background = 'rgb(255, 255, 255)';
+    }
+  }
+
+  function animateButton(btn, $class) {
+    btn.classList.toggle($class);
+    setTimeout(function() {
+      btn.classList.toggle($class);
+    }, 50);
+  }
+  
   function easterEgg() {
     for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
       setTimeout(function() {
@@ -104,81 +164,6 @@ function PixelPainter(width, height) {
 
   // ----------------------------------------------------------------------- //
 
-  // Set paintbrush color upon clicking palette element:
-  for (let i = 0; i < paletteCells.length; i++) {
-    paletteCells[i].addEventListener('click', function() {
-      paintBrushColor = this.style.background;
-      // Place white highlight only around selected color:
-      if (this.className !== 'palette-cell select-color') {
-        for (let i = 0; i < paletteCells.length; i++) {
-          paletteCells[i].classList.remove('select-color');
-        }
-        this.classList.add('select-color');
-      }
-      // Remove .select-erase from "erase" button:
-      eraseButton.classList.remove('select-erase');
-    });
-  }
-
-  // Set canvas cell background to match paintbrush color (MOUSE):
-  for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('mousedown', function() {
-      mouseIsDown = true;
-      this.style.background = paintBrushColor;
-    });
-    canvasCells[i].addEventListener('mouseup', function() {
-      mouseIsDown = false;
-    });
-    canvasCells[i].addEventListener('mouseover', function() {
-      if (mouseIsDown) {
-        this.style.background = paintBrushColor;
-      }
-    });
-  }
-
-  // Set canvas cell background to match paintbrush color (TOUCH):
-  for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('touchstart', function(event) {
-      event.preventDefault();
-      this.style.background = paintBrushColor;
-    });
-    canvasCells[i].addEventListener('touchmove', function(event) {
-      event.preventDefault();
-      const x = event.touches[0].pageX;
-      const y = event.touches[0].pageY;
-      const element = document.elementFromPoint(x, y);
-      if (element && element.classList.contains('canvas-cell')) {
-        element.style.background = paintBrushColor;
-      }
-    });
-  }
-
-  // Set paintbrush color to white upon clicking "erase":
-  eraseButton.addEventListener('click', function() {
-    animateButton(this, 'press-erase');
-    paintBrushColor = 'rgb(255, 255, 255)';
-    this.classList.add('select-erase');
-    // Remove white highlight around any currently selected palette color:
-    for (let i = 0; i < paletteCells.length; i++) {
-      paletteCells[i].classList.remove('select-color');
-    }
-  });
-
-  // Clear canvas upon clicking "clear":
-  clearButton.addEventListener('click', function() {
-    animateButton(this, 'press-clear');
-    for (let i = 0; i < canvasCells.length; i++) {
-      canvasCells[i].style.background = 'rgb(255, 255, 255)';
-    }
-  });
-
-  // Prevent 'mouseover' from coloring cells while mouse is not clicked down:
-  document.body.addEventListener('mouseup', function() {
-    mouseIsDown = false;
-  });
-
-  // ----------------------------------------------------------------------- //
-
   // Set heading colors:
   changeHeading();
   for (let i = 0, hue = 0; i < headingLetters.length; i++) {
@@ -187,6 +172,33 @@ function PixelPainter(width, height) {
     heading.style.opacity = '1';
   }
 
+  // Set paintbrush color upon clicking palette element:
+  for (let i = 0; i < paletteCells.length; i++) {
+    paletteCells[i].addEventListener('click', handlePaletteCells);
+  }
+
+  // Set canvas cell background to match paintbrush color (MOUSE):
+  for (let i = 0; i < canvasCells.length; i++) {
+    canvasCells[i].addEventListener('mousedown', handleMouseDown);
+    canvasCells[i].addEventListener('mouseup', handleMouseUp);
+    canvasCells[i].addEventListener('mouseover', handleMouseOver);
+  }
+
+  // Prevent 'mouseover' from coloring cells while mouse is not clicked down:
+  document.body.addEventListener('mouseup', handleMouseUp);
+
+  // Set canvas cell background to match paintbrush color (TOUCH):
+  for (let i = 0; i < canvasCells.length; i++) {
+    canvasCells[i].addEventListener('touchstart', handleTouchStart);
+    canvasCells[i].addEventListener('touchmove', handleTouchMove);
+  }
+
+  // Set paintbrush color to white upon clicking "erase":
+  eraseButton.addEventListener('click', handleEraseButton);
+
+  // Clear canvas upon clicking "clear":
+  clearButton.addEventListener('click', handleClearButton);
+
   // Set palette colors:
   for (let i = 0, hue = 0, rgb = 0; i < paletteCells.length; i++) {
     if (i < paletteCells.length * 0.8) {
@@ -194,7 +206,7 @@ function PixelPainter(width, height) {
       hue += 360 / (paletteCells.length * 0.8);
     } else {
       paletteCells[i].style.background = makeGrayscale(rgb);
-      rgb += Math.round(255 / 8);
+      rgb += Math.round(255 / (width / 2));
     }
   }
 

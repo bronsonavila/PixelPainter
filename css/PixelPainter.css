@@ -128,33 +128,27 @@ h1 {
     padding: 0.36rem 0.55rem;
     font-size: 1.65rem;
     line-height: 1.65rem;
-    box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
   }
   h1 {
     font-size: 3.3rem;
     line-height: 3.3rem;
     margin: 1.1rem 0;
-    text-shadow: 2px 2px 2px #2b2b2b;
   }
   #canvas,
   #palette {
-    border: 1px solid #2b2b2b;
     margin-bottom: 1.1rem;
-    box-shadow: 1px 2px 3px hsla(210, 26%, 7%, 0.75);
   }
   .canvas-row {
     height: 17.6px;
   }
   .canvas-cell {
     width: 17.6px;
-    border: 1px solid #2b2b2b;
   }
   .palette-row {
     height: 24.2px;
   }
   .palette-cell {
     width: 24.2px;
-    border: 1px solid #2b2b2b;
   }
   .select-color {
     border: 1px solid #fff;
@@ -167,33 +161,27 @@ h1 {
     padding: 0.47rem 0.72rem;
     font-size: 2.15rem;
     line-height: 2.15rem;
-    box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
   }
   h1 {
     font-size: 4.29rem;
     line-height: 4.29rem;
     margin: 1.43rem 0;
-    text-shadow: 2px 2px 2px #2b2b2b;
   }
   #canvas,
   #palette {
-    border: 1px solid #2b2b2b;
     margin-bottom: 1.43rem;
-    box-shadow: 1px 2px 3px hsla(210, 26%, 7%, 0.75);
   }
   .canvas-row {
     height: 22.88px;
   }
   .canvas-cell {
     width: 22.88px;
-    border: 1px solid #2b2b2b;
   }
   .palette-row {
     height: 31.46px;
   }
   .palette-cell {
     width: 31.46px;
-    border: 1px solid #2b2b2b;
   }
   .select-color {
     border: 1px solid #fff;
@@ -206,33 +194,27 @@ h1 {
     padding: 0.61rem 0.93rem;
     font-size: 2.79rem;
     line-height: 2.79rem;
-    box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
   }
   h1 {
     font-size: 5.58rem;
     line-height: 5.58rem;
     margin: 1.86rem 0;
-    text-shadow: 2px 2px 2px #2b2b2b;
   }
   #canvas,
   #palette {
-    border: 1px solid #2b2b2b;
     margin-bottom: 1.86rem;
-    box-shadow: 1px 2px 3px hsla(210, 26%, 7%, 0.75);
   }
   .canvas-row {
     height: 29.74px;
   }
   .canvas-cell {
     width: 29.74px;
-    border: 1px solid #2b2b2b;
   }
   .palette-row {
     height: 40.9px;
   }
   .palette-cell {
     width: 40.9px;
-    border: 1px solid #2b2b2b;
   }
   .select-color {
     border: 1px solid #fff;

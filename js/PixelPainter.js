@@ -1,7 +1,7 @@
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
   const heading = document.getElementsByTagName('h1')[0];
-  let mouseIsDown = false;
+  let pointerIsDown = false;
   let colorRange = 360;
   let headingLetters;
   let canvasCells;
@@ -52,21 +52,6 @@ function PixelPainter(width, height) {
     return 'rgb(' + num + ',' + num + ',' + num + ')';
   }
 
-  function handleMouseDown() {
-    mouseIsDown = true;
-    this.style.background = paintBrushColor;
-  }
-
-  function handleMouseUp() {
-    mouseIsDown = false;
-  }
-
-  function handleMouseOver() {
-    if (mouseIsDown) {
-      this.style.background = paintBrushColor;
-    }
-  }
-
   function handlePaletteCells() {
     paintBrushColor = this.style.background;
     // Place white highlight only around selected color:
@@ -79,19 +64,25 @@ function PixelPainter(width, height) {
     // Remove .select-erase from "erase" button:
     eraseButton.classList.remove('select-erase');
   }
-
-  function handleTouchStart(event) {
-    event.preventDefault();
+  
+  function handlePointerDown() {
+    pointerIsDown = true;
     this.style.background = paintBrushColor;
   }
 
-  function handleTouchMove(event) {
-    event.preventDefault();
-    const x = event.touches[0].pageX;
-    const y = event.touches[0].pageY;
-    const element = document.elementFromPoint(x, y);
-    if (element && element.classList.contains('canvas-cell')) {
-      element.style.background = paintBrushColor;
+  function handlePointerUp() {
+    pointerIsDown = false;
+  }
+
+  function handlePointerMove(event) {
+    if (pointerIsDown) {
+      event.preventDefault();
+      const x = event.pageX;
+      const y = event.pageY;
+      const element = document.elementFromPoint(x, y);
+      if (element && element.classList.contains('canvas-cell')) {
+        element.style.background = paintBrushColor;
+      }
     }
   }
 
@@ -177,21 +168,15 @@ function PixelPainter(width, height) {
     paletteCells[i].addEventListener('click', handlePaletteCells);
   }
 
-  // Set canvas cell background to match paintbrush color (MOUSE):
+  // Set canvas cell background to match paintbrush color:
   for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('mousedown', handleMouseDown);
-    canvasCells[i].addEventListener('mouseup', handleMouseUp);
-    canvasCells[i].addEventListener('mouseover', handleMouseOver);
+    canvasCells[i].addEventListener('pointerdown', handlePointerDown);
+    canvasCells[i].addEventListener('pointerup', handlePointerUp);
+    canvasCells[i].addEventListener('pointermove', handlePointerMove);
   }
 
-  // Prevent 'mouseover' from coloring cells while mouse is not clicked down:
-  document.body.addEventListener('mouseup', handleMouseUp);
-
-  // Set canvas cell background to match paintbrush color (TOUCH):
-  for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('touchstart', handleTouchStart);
-    canvasCells[i].addEventListener('touchmove', handleTouchMove);
-  }
+  // Prevent 'pointermove' from coloring cells while pointer is not down:
+  document.body.addEventListener('pointerup', handlePointerUp);
 
   // Set paintbrush color to white upon clicking "erase":
   eraseButton.addEventListener('click', handleEraseButton);

@@ -61,10 +61,8 @@ function PixelPainter(width, height) {
       }
       this.classList.add('select-color');
     }
-    // Remove .select-erase from "erase" button:
-    eraseButton.classList.remove('select-erase');
   }
-  
+
   function handlePointerDown() {
     pointerIsDown = true;
     this.style.background = paintBrushColor;
@@ -86,16 +84,6 @@ function PixelPainter(width, height) {
     }
   }
 
-  function handleEraseButton() {
-    animateButton(this, 'press-erase');
-    paintBrushColor = 'rgb(255, 255, 255)';
-    this.classList.add('select-erase');
-    // Remove white highlight around any currently selected palette color:
-    for (let i = 0; i < paletteCells.length; i++) {
-      paletteCells[i].classList.remove('select-color');
-    }
-  }
-
   function handleClearButton() {
     animateButton(this, 'press-clear');
     for (let i = 0; i < canvasCells.length; i++) {
@@ -109,7 +97,7 @@ function PixelPainter(width, height) {
       btn.classList.toggle($class);
     }, 50);
   }
-  
+
   function easterEgg() {
     for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
       setTimeout(function() {
@@ -136,22 +124,11 @@ function PixelPainter(width, height) {
   pixelPainterDiv.appendChild(palette);
   paletteCells = document.getElementsByClassName('palette-cell');
 
-  // Create container for "options" bar:
-  const options = document.createElement('div');
-  options.id = 'options';
-  pixelPainterDiv.appendChild(options);
-
-  // Create "erase" button:
-  const eraseButton = document.createElement('button');
-  eraseButton.className = 'erase-button';
-  eraseButton.textContent = 'ERASE';
-  options.appendChild(eraseButton);
-
   // Create "clear" button:
   const clearButton = document.createElement('button');
   clearButton.className = 'clear-button';
   clearButton.textContent = 'CLEAR';
-  options.appendChild(clearButton);
+  pixelPainterDiv.appendChild(clearButton);
 
   // ----------------------------------------------------------------------- //
 
@@ -178,9 +155,6 @@ function PixelPainter(width, height) {
   // Prevent 'pointermove' from coloring cells while pointer is not down:
   document.body.addEventListener('pointerup', handlePointerUp);
 
-  // Set paintbrush color to white upon clicking "erase":
-  eraseButton.addEventListener('click', handleEraseButton);
-
   // Clear canvas upon clicking "clear":
   clearButton.addEventListener('click', handleClearButton);
 
@@ -191,7 +165,7 @@ function PixelPainter(width, height) {
       hue += 360 / (paletteCells.length * 0.8);
     } else {
       paletteCells[i].style.background = makeGrayscale(rgb);
-      rgb += Math.round(255 / (width / 2));
+      rgb += Math.round(256 / ((width / 2) - 1));
     }
   }
 

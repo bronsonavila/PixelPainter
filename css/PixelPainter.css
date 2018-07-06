@@ -66,13 +66,6 @@ h1 {
   box-shadow: 1px 2px 3px hsla(210, 33%, 33%, 0.75);
 }
 
-#options {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-width: 100%;
-}
-
 .canvas-row {
   display: flex;
   height: 16px;
@@ -99,29 +92,19 @@ h1 {
   border: 1px solid #2b2b2b;
 }
 
-.erase-button,
 .clear-button {
   transition: 0.1s;
-}
-
-.select-color {
-  border: 1px solid #fff;
-  box-shadow: inset 0px 0px 1px 1px #fff;
-}
-
-.select-erase {
-  background: hsla(60, 100%, 75%, 1);
-}
-
-.press-erase {
-  transform: translate(1px, 2px);
-  box-shadow: none !important;
 }
 
 .press-clear {
   transform: translate(1px, 2px);
   box-shadow: none !important;
   background: hsla(0, 100%, 75%, 1);
+}
+
+.select-color {
+  border: 1px solid #fff;
+  box-shadow: inset 0px 0px 1px 1px #fff;
 }
 
 @media (min-width: 576px) and (min-height: 576px) {

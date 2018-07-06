@@ -94,12 +94,16 @@ h1 {
 
 .clear-button {
   transition: 0.1s;
+  margin-bottom: 1rem;
+  color: #fbfbfb;
+  background: hsl(0, 100%, 50%);
 }
 
 .press-clear {
   transform: translate(1px, 2px);
   box-shadow: none !important;
-  background: hsl(0, 100%, 75%);
+  color: #bcbcbc;
+  background: hsl(0, 100%, 37.5%);
 }
 
 .select-color {

@@ -127,8 +127,8 @@ function PixelPainter(width, height) {
       hue += colorRange / canvasCells.length;
       ms += 1000 / canvasCells.length;
     }
-    colorRange *= 2;
-    if (colorRange === 184320) {
+    colorRange = Math.round(colorRange * 2.333);
+    if (colorRange === 6329986024425630) {
       colorRange = 360;
     }
   }

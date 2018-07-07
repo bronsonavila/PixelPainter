@@ -15,20 +15,6 @@ body {
   background: hsl(210, 100%, 90%);
 }
 
-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.33rem 0.5rem;
-  font-family: 'Righteous', sans-serif;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
-  border: 0;
-  transition: 0.05s;
-  background: #fbfbfb;
-  box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
-}
-
 h1 {
   text-align: center;
   font-size: 3rem;
@@ -93,10 +79,20 @@ h1 {
 }
 
 .clear-button {
-  transition: 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Righteous', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  padding: 0.33rem 0.5rem;
   margin-bottom: 1rem;
-  color: hsl(0, 50%, 50%);
+  border: 0;
+  transition: 0.1s;
   background: #fbfbfb;
+  color: hsl(0, 50%, 50%);
+  box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
+  text-shadow: 1px 1px 1px hsla(0, 50%, 25%, 0.25);
 }
 
 .press-clear {
@@ -112,11 +108,6 @@ h1 {
 }
 
 @media (min-width: 576px) and (min-height: 576px) {
-  button {
-    padding: 0.36rem 0.55rem;
-    font-size: 1.65rem;
-    line-height: 1.65rem;
-  }
   h1 {
     font-size: 3.3rem;
     line-height: 3.3rem;
@@ -138,6 +129,11 @@ h1 {
   .palette-cell {
     width: 24.2px;
   }
+  .clear-button {
+    padding: 0.36rem 0.55rem;
+    font-size: 1.65rem;
+    line-height: 1.65rem;
+  }
   .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.1px 1.1px #fff;
@@ -145,11 +141,6 @@ h1 {
 }
 
 @media (min-width: 768px) and (min-height: 768px) {
-  button {
-    padding: 0.47rem 0.72rem;
-    font-size: 2.15rem;
-    line-height: 2.15rem;
-  }
   h1 {
     font-size: 4.29rem;
     line-height: 4.29rem;
@@ -171,6 +162,11 @@ h1 {
   .palette-cell {
     width: 31.46px;
   }
+  .clear-button {
+    padding: 0.47rem 0.72rem;
+    font-size: 2.15rem;
+    line-height: 2.15rem;
+  }
   .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.43px 1.43px #fff;
@@ -178,11 +174,6 @@ h1 {
 }
 
 @media (min-width: 992px) and (min-height: 992px) {
-  button {
-    padding: 0.61rem 0.93rem;
-    font-size: 2.79rem;
-    line-height: 2.79rem;
-  }
   h1 {
     font-size: 5.58rem;
     line-height: 5.58rem;
@@ -203,6 +194,11 @@ h1 {
   }
   .palette-cell {
     width: 40.9px;
+  }
+  .clear-button {
+    padding: 0.61rem 0.93rem;
+    font-size: 2.79rem;
+    line-height: 2.79rem;
   }
   .select-color {
     border: 1px solid #fff;

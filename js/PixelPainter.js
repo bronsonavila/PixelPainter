@@ -3,7 +3,7 @@ function PixelPainter(width, height) {
   const heading = document.getElementsByTagName('h1')[0];
   const pHeight = 5;
   const pWidth = 8;
-  let pointerIsDown = false;
+  let mouseIsDown = false;
   let colorRange = 360;
   let headingLetters;
   let canvasCells;
@@ -66,24 +66,33 @@ function PixelPainter(width, height) {
     }
   }
 
-  function handlePointerDown(event) {
-    pointerIsDown = true;
+  function handleMouseDown(event) {
+    mouseIsDown = true;
     event.target.style.background = paintBrushColor;
   }
 
-  function handlePointerUp() {
-    pointerIsDown = false;
+  function handleMouseUp() {
+    mouseIsDown = false;
   }
 
-  function handlePointerMove(event) {
-    if (pointerIsDown) {
-      event.preventDefault();
-      const x = event.pageX;
-      const y = event.pageY;
-      const element = document.elementFromPoint(x, y);
-      if (element && element.classList.contains('c-cell')) {
-        element.style.background = paintBrushColor;
-      }
+  function handleMouseOver(event) {
+    if (mouseIsDown) {
+      event.target.style.background = paintBrushColor;
+    }
+  }
+
+  function handleTouchStart(event) {
+    event.preventDefault();
+    event.target.style.background = paintBrushColor;
+  }
+
+  function handleTouchMove(event) {
+    event.preventDefault();
+    const x = event.touches[0].pageX;
+    const y = event.touches[0].pageY;
+    const element = document.elementFromPoint(x, y);
+    if (element && element.classList.contains('c-cell')) {
+      element.style.background = paintBrushColor;
     }
   }
 
@@ -164,15 +173,21 @@ function PixelPainter(width, height) {
     paletteCells[i].addEventListener('click', handlePaletteCells);
   }
 
-  // Set canvas cell background to match paintbrush color:
+  // Set canvas cell background to match paintbrush color (MOUSE):
   for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('pointerdown', handlePointerDown);
-    canvasCells[i].addEventListener('pointerup', handlePointerUp);
-    canvasCells[i].addEventListener('pointermove', handlePointerMove);
+    canvasCells[i].addEventListener('mousedown', handleMouseDown);
+    canvasCells[i].addEventListener('mouseup', handleMouseUp);
+    canvasCells[i].addEventListener('mouseover', handleMouseOver);
+  }
+
+  // Set canvas cell background to match paintbrush color (TOUCH):
+  for (let i = 0; i < canvasCells.length; i++) {
+    canvasCells[i].addEventListener('touchstart', handleTouchStart);
+    canvasCells[i].addEventListener('touchmove', handleTouchMove);
   }
 
   // Prevent 'pointermove' from coloring cells while pointer is not down:
-  document.body.addEventListener('pointerup', handlePointerUp);
+  document.body.addEventListener('mouseup', handleMouseUp);
 
   // Clear canvas upon clicking "clear":
   clearButton.addEventListener('click', handleClearButton);

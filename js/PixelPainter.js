@@ -110,7 +110,8 @@ function PixelPainter(width, height) {
     }, 50);
   }
 
-  function easterEgg() {
+  function easterEgg(event) {
+    event.preventDefault();
     for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
       setTimeout(function() {
         canvasCells[i].style.background = makeColor(hue, 100, 50);

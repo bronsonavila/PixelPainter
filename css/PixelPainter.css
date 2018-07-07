@@ -130,10 +130,8 @@ h1 {
   .c-cell {
     width: 17.6px;
   }
-  .palette-row {
-    height: 24.2px;
-  }
   .p-cell {
+    height: 24.2px;
     width: 24.2px;
   }
   .clear-button {
@@ -163,10 +161,8 @@ h1 {
   .c-cell {
     width: 22.88px;
   }
-  .palette-row {
-    height: 31.46px;
-  }
   .p-cell {
+    height: 31.46px;
     width: 31.46px;
   }
   .clear-button {
@@ -196,10 +192,8 @@ h1 {
   .c-cell {
     width: 29.74px;
   }
-  .palette-row {
-    height: 40.9px;
-  }
   .p-cell {
+    height: 40.9px;
     width: 40.9px;
   }
   .clear-button {

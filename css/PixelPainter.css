@@ -58,6 +58,10 @@ h1 {
     flex-direction: row;
   }
 
+.heading {
+  touch-action: none;
+}
+
 .c-row {
   display: flex;
   height: 16px;

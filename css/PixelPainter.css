@@ -46,19 +46,25 @@ h1 {
 
 #canvas,
 #palette {
-  width: fit-content;
+  display: flex;
   border: 1px solid #2b2b2b;
   margin-bottom: 1rem;
   box-shadow: 1px 2px 3px hsla(210, 33%, 33%, 0.75);
 }
+  #canvas {
+    flex-direction: column;
+  }
+  #palette {
+    flex-direction: row;
+  }
 
-.canvas-row {
+.c-row {
   display: flex;
   height: 16px;
   width: fit-content;
 }
 
-.canvas-cell {
+.c-cell {
   touch-action: none;
   transition: background 0.1s;
   width: 16px;
@@ -66,14 +72,15 @@ h1 {
   background: #fff;
 }
 
-.palette-row {
+.p-column {
   display: flex;
-  height: 22px;
+  flex-direction: column;
   width: fit-content;
 }
 
-.palette-cell {
+.p-cell {
   transition: box-shadow 0.1s;
+  height: 22px;
   width: 22px;
   border: 1px solid #2b2b2b;
 }
@@ -117,16 +124,16 @@ h1 {
   #palette {
     margin-bottom: 1.1rem;
   }
-  .canvas-row {
+  .c-row {
     height: 17.6px;
   }
-  .canvas-cell {
+  .c-cell {
     width: 17.6px;
   }
   .palette-row {
     height: 24.2px;
   }
-  .palette-cell {
+  .p-cell {
     width: 24.2px;
   }
   .clear-button {
@@ -150,16 +157,16 @@ h1 {
   #palette {
     margin-bottom: 1.43rem;
   }
-  .canvas-row {
+  .c-row {
     height: 22.88px;
   }
-  .canvas-cell {
+  .c-cell {
     width: 22.88px;
   }
   .palette-row {
     height: 31.46px;
   }
-  .palette-cell {
+  .p-cell {
     width: 31.46px;
   }
   .clear-button {
@@ -183,16 +190,16 @@ h1 {
   #palette {
     margin-bottom: 1.86rem;
   }
-  .canvas-row {
+  .c-row {
     height: 29.74px;
   }
-  .canvas-cell {
+  .c-cell {
     width: 29.74px;
   }
   .palette-row {
     height: 40.9px;
   }
-  .palette-cell {
+  .p-cell {
     width: 40.9px;
   }
   .clear-button {

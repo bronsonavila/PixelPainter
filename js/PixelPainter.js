@@ -1,26 +1,29 @@
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
   const heading = document.getElementsByTagName('h1')[0];
+  const pHeight = 5;
+  const pWidth = 8;
   let pointerIsDown = false;
   let colorRange = 360;
   let headingLetters;
   let canvasCells;
+  let paletteColumns;
   let paletteCells;
   let paintBrushColor;
 
   // ----------------------------------------------------------------------- //
 
-  function buildGrid(width, height, id, rowClass, cellClass) {
+  function buildGrid(width, height, id, groupClass, cellClass) {
     const grid = document.createElement('div');
-    for (let i = 0; i < height; i++) {
-      const row = document.createElement('div');
-      row.className = rowClass;
-      for (let j = 0; j < width; j++) {
+    for (let i = 0; i < width; i++) {
+      const group = document.createElement('div');
+      group.className = groupClass;
+      for (let j = 0; j < height; j++) {
         const cell = document.createElement('div');
         cell.className = cellClass;
-        row.appendChild(cell);
+        group.appendChild(cell);
       }
-      grid.appendChild(row);
+      grid.appendChild(group);
     }
     grid.id = id;
     return grid;
@@ -44,18 +47,18 @@ function PixelPainter(width, height) {
     headingLetters = document.getElementsByClassName('heading');
   }
 
-  function makeColor(num) {
-    return 'hsl(' + num + ', 100%, 50%)';
+  function makeColor(h, s, l) {
+    return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
   }
 
-  function makeGrayscale(num) {
-    return 'rgb(' + num + ',' + num + ',' + num + ')';
+  function makeGrayscale(val) {
+    return 'rgb(' + val + ',' + val + ',' + val + ')';
   }
 
   function handlePaletteCells(event) {
     paintBrushColor = event.target.style.background;
     // Place white highlight only around selected color:
-    if (event.target.className !== 'palette-cell select-color') {
+    if (event.target.className !== 'p-cell select-color') {
       for (let i = 0; i < paletteCells.length; i++) {
         paletteCells[i].classList.remove('select-color');
       }
@@ -78,7 +81,7 @@ function PixelPainter(width, height) {
       const x = event.pageX;
       const y = event.pageY;
       const element = document.elementFromPoint(x, y);
-      if (element && element.classList.contains('canvas-cell')) {
+      if (element && element.classList.contains('c-cell')) {
         element.style.background = paintBrushColor;
       }
     }
@@ -101,7 +104,7 @@ function PixelPainter(width, height) {
   function easterEgg() {
     for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
       setTimeout(function() {
-        canvasCells[i].style.background = makeColor(hue);
+        canvasCells[i].style.background = makeColor(hue, 100, 50);
       }, ms);
       hue += colorRange / canvasCells.length;
       ms += 1000 / canvasCells.length;
@@ -115,14 +118,15 @@ function PixelPainter(width, height) {
   // ----------------------------------------------------------------------- //
 
   // Create "canvas" grid:
-  const canvas = buildGrid(width, height, 'canvas', 'canvas-row', 'canvas-cell');
+  const canvas = buildGrid(width, height, 'canvas', 'c-row', 'c-cell');
   pixelPainterDiv.appendChild(canvas);
-  canvasCells = document.getElementsByClassName('canvas-cell');
+  canvasCells = document.getElementsByClassName('c-cell');
 
   // Create "palette" grid:
-  const palette = buildGrid(8, 5, 'palette', 'palette-row', 'palette-cell');
+  const palette = buildGrid(pWidth, pHeight, 'palette', 'p-column', 'p-cell');
   pixelPainterDiv.appendChild(palette);
-  paletteCells = document.getElementsByClassName('palette-cell');
+  paletteColumns = document.getElementsByClassName('p-column');
+  paletteCells = document.getElementsByClassName('p-cell');
 
   // Create "clear" button:
   const clearButton = document.createElement('button');
@@ -135,19 +139,23 @@ function PixelPainter(width, height) {
   // Set heading colors:
   changeHeading();
   for (let i = 0, hue = 0; i < headingLetters.length; i++) {
-    headingLetters[i].style.color = makeColor(hue);
+    headingLetters[i].style.color = makeColor(hue, 100, 50);
     hue += 360 / (headingLetters.length / 0.5);
     heading.style.opacity = '1';
   }
 
   // Set palette colors:
-  for (let i = 0, hue = 0, rgb = 0; i < paletteCells.length; i++) {
-    if (i < paletteCells.length * 0.8) {
-      paletteCells[i].style.background = makeColor(hue);
-      hue += 360 / (paletteCells.length * 0.8);
-    } else {
-      paletteCells[i].style.background = makeGrayscale(rgb);
-      rgb += Math.round(256 / ((width / 2) - 1));
+  for (let i = 0, rgb = 0; i < paletteColumns.length; i++) {
+    const hues = [0, 30, 60, 120, 240, 280, 320]; // ROYGBIV
+    const columnCells = paletteColumns[i].children;
+    for (let j = 0, l = 50; j < pHeight; j++) {
+      if (i < paletteColumns.length - 1) {
+        columnCells[j].style.background = makeColor(hues[i], 100, l);
+        l += 10; // Lighten colors on each iteration.
+      } else {
+        columnCells[j].style.background = makeGrayscale(rgb);
+        rgb += Math.round(256 / (width / 4));
+      }
     }
   }
 

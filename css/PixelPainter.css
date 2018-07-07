@@ -11,7 +11,7 @@ body {
   flex-direction: column;
   align-items: center;
   font-family: 'Righteous', sans-serif;
-  height: 100%;
+  height: fit-content;
   margin: 0;
   background: hsl(210, 100%, 90%);
 }

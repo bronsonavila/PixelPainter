@@ -95,15 +95,15 @@ h1 {
 .clear-button {
   transition: 0.1s;
   margin-bottom: 1rem;
-  color: #fbfbfb;
-  background: hsl(0, 100%, 50%);
+  color: hsl(0, 50%, 50%);
+  background: #fbfbfb;
 }
 
 .press-clear {
   transform: translate(1px, 2px);
   box-shadow: none !important;
-  color: #bcbcbc;
-  background: hsl(0, 100%, 37.5%);
+  color: hsl(0, 100%, 37.5%);
+  background: #bcbcbc;
 }
 
 .select-color {

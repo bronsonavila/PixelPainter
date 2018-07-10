@@ -119,10 +119,6 @@ h1 {
   box-shadow: inset 0px 0px 1px 1px #fff;
 }
 
-.blur {
-  transition: background 0.5s;
-}
-
 @media (min-width: 576px) and (min-height: 576px) {
   h1 {
     font-size: 3.3rem;

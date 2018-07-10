@@ -25,7 +25,7 @@ h1 {
   width: fit-content;
   min-width: 320px;
   opacity: 0;
-  text-shadow: 1px 1px 2px rgb(51, 58, 64), 
+  text-shadow: 1px 1px 2px rgb(51, 58, 64),
                2px 2px 5px rgb(102, 116, 128);
 }
 
@@ -118,6 +118,10 @@ h1 {
 .select-color {
   border: 1px solid #fff;
   box-shadow: inset 0px 0px 1px 1px #fff;
+}
+
+.blur {
+  transition: background 0.5s;
 }
 
 @media (min-width: 576px) and (min-height: 576px) {

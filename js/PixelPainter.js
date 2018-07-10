@@ -3,6 +3,7 @@ function PixelPainter(width, height) {
   const heading = document.getElementsByTagName('h1')[0];
   const pHeight = 5;
   const pWidth = 8;
+  let easterIsEggAnimated = false;
   let mouseIsDown = false;
   let colorRange = 360;
   let headingLetters;
@@ -10,6 +11,7 @@ function PixelPainter(width, height) {
   let paletteColumns;
   let paletteCells;
   let paintBrushColor;
+  let intervalId;
 
   // ----------------------------------------------------------------------- //
 
@@ -98,6 +100,16 @@ function PixelPainter(width, height) {
 
   function handleClearButton(event) {
     animateButton(event.target, 'press-clear');
+    if (easterIsEggAnimated) {
+      stopEasterEgg();
+      colorRange = 360;
+      for (let i = 0, ms = 0; i < canvasCells.length; i++) {
+        setTimeout(function() {
+          canvasCells[i].style.background = 'rgb(255, 255, 255)';
+        }, ms);
+        ms += 1000 / canvasCells.length;
+      }
+    }
     for (let i = 0; i < canvasCells.length; i++) {
       canvasCells[i].style.background = 'rgb(255, 255, 255)';
     }
@@ -110,19 +122,40 @@ function PixelPainter(width, height) {
     }, 50);
   }
 
-  function easterEgg(event) {
+  function animateEasterEgg(event) {
     event.preventDefault();
+    if (!easterIsEggAnimated) {
+      for (let i = 0; i < canvasCells.length; i++) {
+        canvasCells[i].classList.add('blur');
+      }
+      setTimeout(startEasterEgg, 0);
+      intervalId = setInterval(startEasterEgg, 250);
+      easterIsEggAnimated = true;
+    } else {
+      stopEasterEgg();
+    }
+  }
+
+  function startEasterEgg() {
     for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
       setTimeout(function() {
-        canvasCells[i].style.background = makeColor(hue, 100, 50);
+        canvasCells[i].style.background = makeColor(hue, 100, 75);
       }, ms);
       hue += colorRange / canvasCells.length;
       ms += 1000 / canvasCells.length;
     }
-    colorRange = Math.round(colorRange * 2.333);
-    if (colorRange > Math.pow(2, 26)) {
+    colorRange = Math.round(colorRange * 1.25);
+    if (colorRange > Math.pow(2, 128)) {
       colorRange = 360;
     }
+  }
+
+  function stopEasterEgg() {
+    for (let i = 0; i < canvasCells.length; i++) {
+      canvasCells[i].classList.remove('blur');
+    }
+    clearInterval(intervalId);
+    easterIsEggAnimated = false;
   }
 
   // ----------------------------------------------------------------------- //
@@ -198,7 +231,7 @@ function PixelPainter(width, height) {
   paletteCells[0].classList.add('select-color');
 
   // Easter Egg - Click first letter of heading to create rainbow canvas:
-  headingLetters[0].addEventListener('click', easterEgg);
+  headingLetters[0].addEventListener('click', animateEasterEgg);
 }
 
 PixelPainter(16, 16);

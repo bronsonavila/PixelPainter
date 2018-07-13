@@ -69,19 +69,20 @@ function PixelPainter(width, height) {
       return;
     }
 
+    function makeDirection(row, column) {
+      return document.querySelector(
+        '[data-row="' + row + '"][data-column="' + column + '"]'
+      );
+    }
+
     const row = Number(target.dataset.row);
     const column = Number(target.dataset.column);
-    const above = makeDirection(row - 1, column);
-    const below = makeDirection(row + 1, column);
-    const left = makeDirection(row, column - 1);
-    const right = makeDirection(row, column + 1);
-    const directions = [above, below, left, right];
-
-    function makeDirection(row, column) {
-      return document.querySelectorAll(
-        '[data-row="' + row + '"][data-column="' + column + '"]'
-      )[0];
-    }
+    const directions = [
+      makeDirection(row - 1, column), // ABOVE current cell
+      makeDirection(row + 1, column), // BELOW current cell
+      makeDirection(row, column - 1), // LEFT of current cell
+      makeDirection(row, column + 1) // RIGHT of current cell
+    ];
 
     for (let direction of directions) {
       if (!direction || direction.style.background !== colorToFill) {

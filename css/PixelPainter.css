@@ -28,6 +28,22 @@ h1 {
                2px 2px 5px rgb(102, 116, 128);
 }
 
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Righteous', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  padding: 0.33rem 0.5rem;
+  border: 0;
+  transition: 0.1s;
+  background: #fbfbfb;
+  color: hsl(0, 50%, 50%);
+  box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
+  text-shadow: 1px 1px 1px hsla(0, 50%, 25%, 0.25);
+}
+
 :focus {
   outline: none;
 }
@@ -63,6 +79,14 @@ h1 {
   touch-action: none;
 }
 
+#options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 1rem;
+}
+
 .c-row {
   display: flex;
   height: 16px;
@@ -90,23 +114,6 @@ h1 {
   border: 1px solid #2b2b2b;
 }
 
-.clear-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Righteous', sans-serif;
-  font-size: 1.5rem;
-  line-height: 1.5rem;
-  padding: 0.33rem 0.5rem;
-  margin-bottom: 1rem;
-  border: 0;
-  transition: 0.1s;
-  background: #fbfbfb;
-  color: hsl(0, 50%, 50%);
-  box-shadow: 1px 2px 3px 1px hsla(210, 33%, 33%, 0.75);
-  text-shadow: 1px 1px 1px hsla(0, 50%, 25%, 0.25);
-}
-
 .press-clear {
   transform: translate(1px, 2px);
   box-shadow: none !important;
@@ -119,11 +126,20 @@ h1 {
   box-shadow: inset 0px 0px 1px 1px #fff;
 }
 
+.select-mode {
+  background: hsla(60, 100%, 75%, 1);
+}
+
 @media (min-width: 576px) and (min-height: 576px) {
   h1 {
     font-size: 3.3rem;
     line-height: 3.3rem;
     margin: 1.1rem 0;
+  }
+  button {
+    padding: 0.36rem 0.55rem;
+    font-size: 1.65rem;
+    line-height: 1.65rem;
   }
   #canvas,
   #palette {
@@ -139,11 +155,6 @@ h1 {
     height: 24.2px;
     width: 24.2px;
   }
-  .clear-button {
-    padding: 0.36rem 0.55rem;
-    font-size: 1.65rem;
-    line-height: 1.65rem;
-  }
   .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.1px 1.1px #fff;
@@ -155,6 +166,11 @@ h1 {
     font-size: 4.29rem;
     line-height: 4.29rem;
     margin: 1.43rem 0;
+  }
+  button {
+    padding: 0.47rem 0.72rem;
+    font-size: 2.15rem;
+    line-height: 2.15rem;
   }
   #canvas,
   #palette {
@@ -170,11 +186,6 @@ h1 {
     height: 31.46px;
     width: 31.46px;
   }
-  .clear-button {
-    padding: 0.47rem 0.72rem;
-    font-size: 2.15rem;
-    line-height: 2.15rem;
-  }
   .select-color {
     border: 1px solid #fff;
     box-shadow: inset 0px 0px 1.43px 1.43px #fff;
@@ -186,6 +197,11 @@ h1 {
     font-size: 5.58rem;
     line-height: 5.58rem;
     margin: 1.86rem 0;
+  }
+  button {
+    padding: 0.61rem 0.93rem;
+    font-size: 2.79rem;
+    line-height: 2.79rem;
   }
   #canvas,
   #palette {
@@ -200,11 +216,6 @@ h1 {
   .p-cell {
     height: 40.9px;
     width: 40.9px;
-  }
-  .clear-button {
-    padding: 0.61rem 0.93rem;
-    font-size: 2.79rem;
-    line-height: 2.79rem;
   }
   .select-color {
     border: 1px solid #fff;

@@ -1,3 +1,5 @@
+'use strict';
+
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
   const heading = document.getElementsByTagName('h1')[0];

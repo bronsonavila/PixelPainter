@@ -5,6 +5,7 @@ function PixelPainter(width, height) {
   const pWidth = 8;
   let mouseIsDown = false;
   let colorRange = 360;
+  let mode = 'brush';
   let headingLetters;
   let canvasCells;
   let paletteColumns;
@@ -21,12 +22,20 @@ function PixelPainter(width, height) {
       for (let j = 0; j < height; j++) {
         const cell = document.createElement('div');
         cell.className = cellClass;
+        if (id === 'canvas') {
+          addCellAttributes(cell, i, j);
+        }
         group.appendChild(cell);
       }
       grid.appendChild(group);
     }
     grid.id = id;
     return grid;
+  }
+
+  function addCellAttributes(cell, i, j) {
+    cell.dataset.row = i;
+    cell.dataset.column = j;
   }
 
   function changeHeading() {
@@ -55,6 +64,36 @@ function PixelPainter(width, height) {
     return 'rgb(' + val + ',' + val + ',' + val + ')';
   }
 
+  function fillCanvas(target, colorToFill) {
+    if (target === 'abort') {
+      return;
+    }
+
+    const row = Number(target.dataset.row);
+    const column = Number(target.dataset.column);
+    const above = makeDirection(row - 1, column);
+    const below = makeDirection(row + 1, column);
+    const left = makeDirection(row, column - 1);
+    const right = makeDirection(row, column + 1);
+    const directions = [above, below, left, right];
+
+    function makeDirection(row, column) {
+      return document.querySelectorAll(
+        '[data-row="' + row + '"][data-column="' + column + '"]'
+      )[0];
+    }
+
+    for (let direction of directions) {
+      if (!direction || direction.style.background !== colorToFill) {
+        target.style.background = paintBrushColor;
+        fillCanvas('abort', null);
+      } else {
+        direction.style.background = paintBrushColor;
+        fillCanvas(direction, colorToFill);
+      }
+    }
+  }
+
   function handlePaletteCells(event) {
     paintBrushColor = event.target.style.background;
     // Place white highlight only around selected color:
@@ -68,7 +107,12 @@ function PixelPainter(width, height) {
 
   function handleMouseDown(event) {
     mouseIsDown = true;
-    event.target.style.background = paintBrushColor;
+    if (mode === 'brush') {
+      event.target.style.background = paintBrushColor;
+    } else {
+      const colorToFill = event.target.style.background;
+      fillCanvas(event.target, colorToFill);
+    }
   }
 
   function handleMouseUp() {
@@ -76,7 +120,7 @@ function PixelPainter(width, height) {
   }
 
   function handleMouseOver(event) {
-    if (mouseIsDown) {
+    if (mouseIsDown && mode === 'brush') {
       event.target.style.background = paintBrushColor;
     }
   }
@@ -93,6 +137,22 @@ function PixelPainter(width, height) {
     const element = document.elementFromPoint(x, y);
     if (element && element.classList.contains('c-cell')) {
       element.style.background = paintBrushColor;
+    }
+  }
+
+  function handleBrushButton(event) {
+    mode = 'brush';
+    if (!event.target.classList.contains('select-mode')) {
+      fillButton.classList.remove('select-mode');
+      event.target.classList.add('select-mode');
+    }
+  }
+
+  function handleFillButton(event) {
+    mode = 'fill';
+    if (!event.target.classList.contains('select-mode')) {
+      brushButton.classList.remove('select-mode');
+      event.target.classList.add('select-mode');
     }
   }
 
@@ -138,11 +198,28 @@ function PixelPainter(width, height) {
   paletteColumns = document.getElementsByClassName('p-column');
   paletteCells = document.getElementsByClassName('p-cell');
 
+  // Create container for "options" bar:
+  const options = document.createElement('div');
+  options.id = 'options';
+  pixelPainterDiv.appendChild(options);
+
+  // Create "paintbrush" button:
+  const brushButton = document.createElement('button');
+  brushButton.className = 'brush-button select-mode';
+  brushButton.textContent = String.fromCodePoint(0x1f58c); // 🖌️
+  options.appendChild(brushButton);
+
   // Create "clear" button:
   const clearButton = document.createElement('button');
   clearButton.className = 'clear-button';
   clearButton.textContent = 'CLEAR';
-  pixelPainterDiv.appendChild(clearButton);
+  options.appendChild(clearButton);
+
+  // Create "fill" button:
+  const fillButton = document.createElement('button');
+  fillButton.className = 'fill-button';
+  fillButton.textContent = String.fromCodePoint(0x1f6b0); // 🚰
+  options.appendChild(fillButton);
 
   // ----------------------------------------------------------------------- //
 
@@ -189,6 +266,12 @@ function PixelPainter(width, height) {
 
   // Prevent 'pointermove' from coloring cells while pointer is not down:
   document.body.addEventListener('mouseup', handleMouseUp);
+
+  // Set color mode to "paintbrush":
+  brushButton.addEventListener('click', handleBrushButton);
+
+  // Set color mode to "fill":
+  fillButton.addEventListener('click', handleFillButton);
 
   // Clear canvas upon clicking "clear":
   clearButton.addEventListener('click', handleClearButton);

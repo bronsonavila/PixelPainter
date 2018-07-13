@@ -65,15 +65,17 @@ function PixelPainter(width, height) {
   }
 
   function fillCanvas(target, colorToFill) {
-    console.log(target);
-    const row = target.dataset.row;
-    const column = target.dataset.column;
-    const above = makeDirection(target.dataset.row - 1, column);
-    const below = makeDirection(target.dataset.row + 1, column);
-    const left = makeDirection(row, target.dataset.column - 1);
-    const right = makeDirection(row, target.dataset.column + 1);
+    if (target === 'abort') {
+      return;
+    }
+
+    const row = Number(target.dataset.row);
+    const column = Number(target.dataset.column);
+    const above = makeDirection(row - 1, column);
+    const below = makeDirection(row + 1, column);
+    const left = makeDirection(row, column - 1);
+    const right = makeDirection(row, column + 1);
     const directions = [above, below, left, right];
-    let newEvent;
 
     function makeDirection(row, column) {
       return document.querySelectorAll(
@@ -83,11 +85,11 @@ function PixelPainter(width, height) {
 
     for (let direction of directions) {
       if (!direction || direction.style.background !== colorToFill) {
-        return;
+        target.style.background = paintBrushColor;
+        fillCanvas('abort', null);
       } else {
-        direction.style.background === paintBrushColor;
-        newEvent = direction;
-        fillCanvas(newEvent, colorToFill);
+        direction.style.background = paintBrushColor;
+        fillCanvas(direction, colorToFill);
       }
     }
   }

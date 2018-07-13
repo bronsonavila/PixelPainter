@@ -78,10 +78,10 @@ function PixelPainter(width, height) {
     const row = Number(target.dataset.row);
     const column = Number(target.dataset.column);
     const directions = [
-      makeDirection(row - 1, column), // ABOVE current cell
-      makeDirection(row + 1, column), // BELOW current cell
-      makeDirection(row, column - 1), // LEFT of current cell
-      makeDirection(row, column + 1) // RIGHT of current cell
+      makeDirection(row - 1, column),  // ABOVE current cell
+      makeDirection(row + 1, column),  // BELOW current cell
+      makeDirection(row, column - 1),  // LEFT of current cell
+      makeDirection(row, column + 1)   // RIGHT of current cell
     ];
 
     for (let direction of directions) {

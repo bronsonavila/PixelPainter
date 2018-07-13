@@ -94,6 +94,15 @@ function PixelPainter(width, height) {
     }
   }
 
+  function paintCanvas(event) {
+    if (mode === 'brush') {
+      event.target.style.background = paintBrushColor;
+    } else {
+      const colorToFill = event.target.style.background;
+      fillCanvas(event.target, colorToFill);
+    }
+  }
+
   function handlePaletteCells(event) {
     paintBrushColor = event.target.style.background;
     // Place white highlight only around selected color:
@@ -107,12 +116,7 @@ function PixelPainter(width, height) {
 
   function handleMouseDown(event) {
     mouseIsDown = true;
-    if (mode === 'brush') {
-      event.target.style.background = paintBrushColor;
-    } else {
-      const colorToFill = event.target.style.background;
-      fillCanvas(event.target, colorToFill);
-    }
+    paintCanvas(event);
   }
 
   function handleMouseUp() {
@@ -127,7 +131,7 @@ function PixelPainter(width, height) {
 
   function handleTouchStart(event) {
     event.preventDefault();
-    event.target.style.background = paintBrushColor;
+    paintCanvas(event);
   }
 
   function handleTouchMove(event) {
@@ -170,7 +174,7 @@ function PixelPainter(width, height) {
     }, 50);
   }
 
-  function easterEgg(event) {
+  function runEasterEgg(event) {
     event.preventDefault();
     for (let i = 0, hue = 0, ms = 0; i < canvasCells.length; i++) {
       setTimeout(function() {
@@ -281,7 +285,7 @@ function PixelPainter(width, height) {
   paletteCells[0].classList.add('select-color');
 
   // Easter Egg - Click first letter of heading to create rainbow canvas:
-  headingLetters[0].addEventListener('click', easterEgg);
+  headingLetters[0].addEventListener('click', runEasterEgg);
 }
 
 PixelPainter(16, 16);

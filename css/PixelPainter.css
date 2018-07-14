@@ -44,6 +44,11 @@ button {
   text-shadow: 1px 1px 1px hsla(0, 50%, 25%, 0.25);
 }
 
+svg {
+  height: 24;
+  width: 24;
+}
+
 :focus {
   outline: none;
 }
@@ -121,6 +126,11 @@ button {
   background: #bcbcbc;
 }
 
+.press-mode {
+  transform: translate(1px, 2px);
+  box-shadow: none !important;
+}
+
 .select-color {
   border: 1px solid #fff;
   box-shadow: inset 0px 0px 1px 1px #fff;
@@ -140,6 +150,10 @@ button {
     padding: 0.36rem 0.55rem;
     font-size: 1.65rem;
     line-height: 1.65rem;
+  }
+  svg {
+    height: 26.4;
+    width: 26.4;
   }
   #canvas,
   #palette {
@@ -172,6 +186,10 @@ button {
     font-size: 2.15rem;
     line-height: 2.15rem;
   }
+  svg {
+    height: 34.32;
+    width: 34.32;
+  }
   #canvas,
   #palette {
     margin-bottom: 1.43rem;
@@ -200,8 +218,12 @@ button {
   }
   button {
     padding: 0.61rem 0.93rem;
-    font-size: 2.79rem;
-    line-height: 2.79rem;
+    font-size: 2.8rem;
+    line-height: 2.8rem;
+  }
+  svg {
+    height: 44.62;
+    width: 44.62;
   }
   #canvas,
   #palette {

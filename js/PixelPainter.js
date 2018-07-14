@@ -66,15 +66,15 @@ function PixelPainter(width, height) {
     return 'rgb(' + val + ',' + val + ',' + val + ')';
   }
 
+  function makeDirection(row, column) {
+    return document.querySelector(
+      '[data-row="' + row + '"][data-column="' + column + '"]'
+    );
+  }
+
   function fillCanvas(target, colorToFill) {
     if (target === 'abort') {
       return;
-    }
-
-    function makeDirection(row, column) {
-      return document.querySelector(
-        '[data-row="' + row + '"][data-column="' + column + '"]'
-      );
     }
 
     const row = Number(target.dataset.row);
@@ -147,19 +147,21 @@ function PixelPainter(width, height) {
     }
   }
 
-  function handleBrushButton(event) {
+  function handleBrushButton() {
+    animateButton(brushButton, 'press-mode');
     mode = 'brush';
-    if (!event.target.classList.contains('select-mode')) {
+    if (!brushButton.classList.contains('select-mode')) {
       fillButton.classList.remove('select-mode');
-      event.target.classList.add('select-mode');
+      brushButton.classList.add('select-mode');
     }
   }
 
-  function handleFillButton(event) {
+  function handleFillButton() {
+    animateButton(fillButton, 'press-mode');
     mode = 'fill';
-    if (!event.target.classList.contains('select-mode')) {
+    if (!fillButton.classList.contains('select-mode')) {
       brushButton.classList.remove('select-mode');
-      event.target.classList.add('select-mode');
+      fillButton.classList.add('select-mode');
     }
   }
 
@@ -213,7 +215,7 @@ function PixelPainter(width, height) {
   // Create "paintbrush" button:
   const brushButton = document.createElement('button');
   brushButton.className = 'brush-button select-mode';
-  brushButton.textContent = String.fromCodePoint(0x1f58c); // 🖌️
+  brushButton.innerHTML = '<span data-jam="brush"></span>'; // 🖌️
   options.appendChild(brushButton);
 
   // Create "clear" button:
@@ -225,7 +227,7 @@ function PixelPainter(width, height) {
   // Create "fill" button:
   const fillButton = document.createElement('button');
   fillButton.className = 'fill-button';
-  fillButton.textContent = String.fromCodePoint(0x1f6b0); // 🚰
+  fillButton.innerHTML = '<span data-jam="water-drop"></span>'; // 🚰
   options.appendChild(fillButton);
 
   // ----------------------------------------------------------------------- //

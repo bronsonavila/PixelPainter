@@ -17,7 +17,8 @@ body {
 }
 
 h1 {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   font-size: 3rem;
   line-height: 3rem;
   margin: 1rem 0;
@@ -92,13 +93,13 @@ svg {
   margin-bottom: 1rem;
 }
 
-.c-row {
+.canvas-row {
   display: flex;
   height: 16px;
   width: fit-content;
 }
 
-.c-cell {
+.canvas-cell {
   touch-action: none;
   transition: background 0.1s;
   width: 16px;
@@ -106,13 +107,13 @@ svg {
   background: #fff;
 }
 
-.p-column {
+.palette-column {
   display: flex;
   flex-direction: column;
   width: fit-content;
 }
 
-.p-cell {
+.palette-cell {
   transition: box-shadow 0.1s;
   height: 22px;
   width: 22px;
@@ -159,13 +160,13 @@ svg {
   #palette {
     margin-bottom: 1.1rem;
   }
-  .c-row {
+  .canvas-row {
     height: 17.6px;
   }
-  .c-cell {
+  .canvas-cell {
     width: 17.6px;
   }
-  .p-cell {
+  .palette-cell {
     height: 24.2px;
     width: 24.2px;
   }
@@ -194,13 +195,13 @@ svg {
   #palette {
     margin-bottom: 1.43rem;
   }
-  .c-row {
+  .canvas-row {
     height: 22.88px;
   }
-  .c-cell {
+  .canvas-cell {
     width: 22.88px;
   }
-  .p-cell {
+  .palette-cell {
     height: 31.46px;
     width: 31.46px;
   }
@@ -229,13 +230,13 @@ svg {
   #palette {
     margin-bottom: 1.86rem;
   }
-  .c-row {
+  .canvas-row {
     height: 29.74px;
   }
-  .c-cell {
+  .canvas-cell {
     width: 29.74px;
   }
-  .p-cell {
+  .palette-cell {
     height: 40.9px;
     width: 40.9px;
   }

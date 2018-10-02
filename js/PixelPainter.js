@@ -3,18 +3,18 @@
 function PixelPainter(width, height) {
   const pixelPainterDiv = document.getElementById('pixelPainter');
   const heading = document.getElementsByTagName('h1')[0];
-  const pHeight = 5;
-  const pWidth = 8;
+  const headingLetters = document.getElementsByClassName('heading');
+  const paletteHeight = 5;
+  const paletteWidth = 8;
   let mouseIsDown = false;
   let colorRange = 360;
   let mode = 'brush';
-  let headingLetters;
   let canvasCells;
   let paletteColumns;
   let paletteCells;
   let paintBrushColor;
 
-  // ----------------------------------------------------------------------- //
+  // ---------------------------=[  FUNCTIONS  ]=--------------------------- //
 
   function buildGrid(width, height, id, groupClass, cellClass) {
     const grid = document.createElement('div');
@@ -40,39 +40,22 @@ function PixelPainter(width, height) {
     cell.dataset.column = j;
   }
 
-  function changeHeading() {
-    heading.innerHTML =
-      '<span class="heading">P</span>' +
-      '<span class="heading">i</span>' +
-      '<span class="heading">x</span>' +
-      '<span class="heading">e</span>' +
-      '<span class="heading">l</span>' +
-      ' ' +
-      '<span class="heading">P</span>' +
-      '<span class="heading">a</span>' +
-      '<span class="heading">i</span>' +
-      '<span class="heading">n</span>' +
-      '<span class="heading">t</span>' +
-      '<span class="heading">e</span>' +
-      '<span class="heading">r</span>';
-    headingLetters = document.getElementsByClassName('heading');
-  }
-
   function makeColor(h, s, l) {
-    return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
+    return `hsl(${h}, ${s}%, ${l}%)`;
   }
 
   function makeGrayscale(val) {
-    return 'rgb(' + val + ',' + val + ',' + val + ')';
+    return `rgb(${val}, ${val}, ${val})`;
   }
 
   function makeDirection(row, column) {
     return document.querySelector(
-      '[data-row="' + row + '"][data-column="' + column + '"]'
+      `[data-row="${row}"][data-column="${column}"]`
     );
   }
 
   function fillCanvas(target, colorToFill) {
+    // Base case:
     if (target === 'abort') {
       return;
     }
@@ -80,10 +63,10 @@ function PixelPainter(width, height) {
     const row = Number(target.dataset.row);
     const column = Number(target.dataset.column);
     const directions = [
-      makeDirection(row - 1, column),  // ABOVE current cell
-      makeDirection(row + 1, column),  // BELOW current cell
-      makeDirection(row, column - 1),  // LEFT of current cell
-      makeDirection(row, column + 1)   // RIGHT of current cell
+      makeDirection(row - 1, column), // ABOVE current cell
+      makeDirection(row + 1, column), // BELOW current cell
+      makeDirection(row, column - 1), // LEFT of current cell
+      makeDirection(row, column + 1)  // RIGHT of current cell
     ];
 
     for (let direction of directions) {
@@ -109,7 +92,7 @@ function PixelPainter(width, height) {
   function handlePaletteCells(event) {
     paintBrushColor = event.target.style.background;
     // Place white highlight only around selected color:
-    if (event.target.className !== 'p-cell select-color') {
+    if (event.target.className !== 'palette-cell select-color') {
       for (let i = 0; i < paletteCells.length; i++) {
         paletteCells[i].classList.remove('select-color');
       }
@@ -142,7 +125,7 @@ function PixelPainter(width, height) {
     const x = event.touches[0].pageX;
     const y = event.touches[0].pageY;
     const element = document.elementFromPoint(x, y);
-    if (element && element.classList.contains('c-cell')) {
+    if (element && element.classList.contains('canvas-cell')) {
       element.style.background = paintBrushColor;
     }
   }
@@ -172,10 +155,10 @@ function PixelPainter(width, height) {
     }
   }
 
-  function animateButton(btn, $class) {
-    btn.classList.toggle($class);
+  function animateButton(target, className) {
+    target.classList.toggle(className);
     setTimeout(function() {
-      btn.classList.toggle($class);
+      target.classList.toggle(className);
     }, 50);
   }
 
@@ -194,18 +177,30 @@ function PixelPainter(width, height) {
     }
   }
 
-  // ----------------------------------------------------------------------- //
+  // ----------------------=[  BUILD HTML ELEMENTS  ]=---------------------- //
 
   // Create "canvas" grid:
-  const canvas = buildGrid(width, height, 'canvas', 'c-row', 'c-cell');
+  const canvas = buildGrid(
+    width,
+    height,
+    'canvas',
+    'canvas-row',
+    'canvas-cell'
+  );
   pixelPainterDiv.appendChild(canvas);
-  canvasCells = document.getElementsByClassName('c-cell');
+  canvasCells = document.getElementsByClassName('canvas-cell');
 
   // Create "palette" grid:
-  const palette = buildGrid(pWidth, pHeight, 'palette', 'p-column', 'p-cell');
+  const palette = buildGrid(
+    paletteWidth,
+    paletteHeight,
+    'palette',
+    'palette-column',
+    'palette-cell'
+  );
   pixelPainterDiv.appendChild(palette);
-  paletteColumns = document.getElementsByClassName('p-column');
-  paletteCells = document.getElementsByClassName('p-cell');
+  paletteColumns = document.getElementsByClassName('palette-column');
+  paletteCells = document.getElementsByClassName('palette-cell');
 
   // Create container for "options" bar:
   const options = document.createElement('div');
@@ -215,7 +210,7 @@ function PixelPainter(width, height) {
   // Create "paintbrush" button:
   const brushButton = document.createElement('button');
   brushButton.className = 'brush-button select-mode';
-  brushButton.innerHTML = '<span data-jam="brush"></span>'; // 🖌️
+  brushButton.innerHTML = '<span data-jam="brush"></span>';
   options.appendChild(brushButton);
 
   // Create "clear" button:
@@ -227,16 +222,16 @@ function PixelPainter(width, height) {
   // Create "fill" button:
   const fillButton = document.createElement('button');
   fillButton.className = 'fill-button';
-  fillButton.innerHTML = '<span data-jam="water-drop"></span>'; // 🚰
+  fillButton.innerHTML = '<span data-jam="water-drop"></span>';
   options.appendChild(fillButton);
 
-  // ----------------------------------------------------------------------- //
+  // ------------------------------=[  INIT  ]=------------------------------ //
 
   // Set heading colors:
-  changeHeading();
   for (let i = 0, hue = 0; i < headingLetters.length; i++) {
     headingLetters[i].style.color = makeColor(hue, 100, 50);
     hue += 360 / (headingLetters.length / 0.5);
+    // Prevent flash of white text prior to colors being added to letters:
     heading.style.opacity = '1';
   }
 
@@ -244,7 +239,8 @@ function PixelPainter(width, height) {
   for (let i = 0, rgb = 0; i < paletteColumns.length; i++) {
     const hues = [0, 30, 60, 120, 240, 280, 320]; // ROYGBIV
     const columnCells = paletteColumns[i].children;
-    for (let j = 0, l = 50; j < pHeight; j++) {
+
+    for (let j = 0, l = 50; j < paletteHeight; j++) {
       if (i < paletteColumns.length - 1) {
         columnCells[j].style.background = makeColor(hues[i], 100, l);
         l += 10; // Lighten colors on each iteration.
@@ -256,22 +252,19 @@ function PixelPainter(width, height) {
   }
 
   // Set paintbrush color upon clicking palette element:
-  for (let i = 0; i < paletteCells.length; i++) {
-    paletteCells[i].addEventListener('click', handlePaletteCells);
-  }
+  Array.from(paletteCells).forEach(paletteCell => {
+    paletteCell.addEventListener('click', handlePaletteCells);
+  });
 
-  // Set canvas cell background to match paintbrush color (MOUSE):
-  for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('mousedown', handleMouseDown);
-    canvasCells[i].addEventListener('mouseup', handleMouseUp);
-    canvasCells[i].addEventListener('mouseover', handleMouseOver);
-  }
-
-  // Set canvas cell background to match paintbrush color (TOUCH):
-  for (let i = 0; i < canvasCells.length; i++) {
-    canvasCells[i].addEventListener('touchstart', handleTouchStart);
-    canvasCells[i].addEventListener('touchmove', handleTouchMove);
-  }
+  Array.from(canvasCells).forEach(canvasCell => {
+    // Set canvas cell background to match paintbrush color (MOUSE):
+    canvasCell.addEventListener('mousedown', handleMouseDown);
+    canvasCell.addEventListener('mouseup', handleMouseUp);
+    canvasCell.addEventListener('mouseover', handleMouseOver);
+    // Set canvas cell background to match paintbrush color (TOUCH):
+    canvasCell.addEventListener('touchstart', handleTouchStart);
+    canvasCell.addEventListener('touchmove', handleTouchMove);
+  });
 
   // Prevent 'pointermove' from coloring cells while pointer is not down:
   document.body.addEventListener('mouseup', handleMouseUp);

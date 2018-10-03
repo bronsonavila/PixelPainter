@@ -70,19 +70,10 @@ svg {
 #canvas,
 #palette {
   display: flex;
+  flex-direction: row;
   border: 1px solid #2b2b2b;
   margin-bottom: 1rem;
   box-shadow: 1px 2px 3px hsla(210, 33%, 33%, 0.75);
-}
-  #canvas {
-    flex-direction: column;
-  }
-  #palette {
-    flex-direction: row;
-  }
-
-.heading {
-  touch-action: none;
 }
 
 #options {
@@ -93,15 +84,20 @@ svg {
   margin-bottom: 1rem;
 }
 
-.canvas-row {
+.heading {
+  touch-action: none;
+}
+
+.canvas-column {
   display: flex;
-  height: 16px;
+  flex-direction: column;
   width: fit-content;
 }
 
 .canvas-cell {
   touch-action: none;
   transition: background 0.1s;
+  height: 16px;
   width: 16px;
   border: 1px solid #2b2b2b;
   background: #fff;
@@ -160,10 +156,8 @@ svg {
   #palette {
     margin-bottom: 1.1rem;
   }
-  .canvas-row {
-    height: 17.6px;
-  }
   .canvas-cell {
+    height: 17.6px;
     width: 17.6px;
   }
   .palette-cell {
@@ -195,10 +189,8 @@ svg {
   #palette {
     margin-bottom: 1.43rem;
   }
-  .canvas-row {
-    height: 22.88px;
-  }
   .canvas-cell {
+    height: 22.88px;
     width: 22.88px;
   }
   .palette-cell {
@@ -230,10 +222,8 @@ svg {
   #palette {
     margin-bottom: 1.86rem;
   }
-  .canvas-row {
-    height: 29.74px;
-  }
   .canvas-cell {
+    height: 29.74px;
     width: 29.74px;
   }
   .palette-cell {

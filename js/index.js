@@ -202,7 +202,7 @@ function pixelPainter(width, height) {
     canvasCell.addEventListener('touchmove', handleTouchMove);
   });
 
-  // Prevent 'pointermove' from coloring cells while pointer is not down:
+  // Prevent 'touchmove' from coloring cells while touch points not held down:
   document.body.addEventListener('mouseup', handleMouseUp);
 
   // Set color mode to "paintbrush":

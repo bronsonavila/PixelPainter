@@ -87,6 +87,11 @@ svg {
   touch-action: none;
 }
 
+/* Used for easter egg */
+.heading:first-of-type {
+  cursor: pointer;
+}
+
 .canvas-column {
   display: flex;
   flex-direction: column;

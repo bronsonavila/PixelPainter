@@ -105,6 +105,7 @@ function pixelPainter(width, height) {
       for (let j = 0; j < height; j++) {
         const cell = document.createElement('div');
         cell.className = cellClassName;
+        cell.style.background = 'rgb(255, 255, 255)'; // All cells start white
         // Apply data attributes only to "canvas" grid (used in applying fill):
         if (id === 'canvas') {
           addCellAttributes(cell, i, j);
